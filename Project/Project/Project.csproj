@@ -5,6 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="App\App.js" />
+    <Content Include="App\index.jsx" />
+    <Content Include="App\ListBox.jsx" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.0.0" />
@@ -18,19 +24,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="client\public\" />
-    <Folder Include="client\src\component\" />
-    <Folder Include="wwwroot\images\" />
-    <Folder Include="wwwroot\js\dist\" />
+    <Folder Include="wwwroot\dist\" />
+    <Folder Include="App\components\" />
+    <Folder Include="App\containers\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Include="wwwroot\css\index.css" />
     <None Include="wwwroot\css\normalize.css" />
     <None Include="wwwroot\favicon.ico" />
-    <None Include="wwwroot\js\App.js" />
-    <None Include="wwwroot\js\index.jsx" />
-    <None Include="wwwroot\js\ListBox.jsx" />
   </ItemGroup>
 
 </Project>
