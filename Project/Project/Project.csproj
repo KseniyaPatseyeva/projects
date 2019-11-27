@@ -17,4 +17,20 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="client\public\" />
+    <Folder Include="client\src\component\" />
+    <Folder Include="wwwroot\images\" />
+    <Folder Include="wwwroot\js\dist\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\index.css" />
+    <None Include="wwwroot\css\normalize.css" />
+    <None Include="wwwroot\favicon.ico" />
+    <None Include="wwwroot\js\App.js" />
+    <None Include="wwwroot\js\index.jsx" />
+    <None Include="wwwroot\js\ListBox.jsx" />
+  </ItemGroup>
+
 </Project>
