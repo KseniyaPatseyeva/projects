@@ -10,6 +10,6 @@ export function decreaseCount() {
   return ({ type: DECREMENT});
 }
 
-export function initCount() {
-  return ({ type: INIT});
+export function initCount(value) {
+  return ({ type: INIT, payload: value});
 }

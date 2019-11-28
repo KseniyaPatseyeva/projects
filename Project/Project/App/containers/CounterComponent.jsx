@@ -17,9 +17,9 @@ class Counter extends PureComponent {
             <div>
                 <h1> Counter </h1>
                 <h1> {this.props.count} </h1>
-                <button onClick={this.props.handleIncrease}> Increase</button>
-                <button onClick={this.props.handleDecrease}> Decrease</button>
-                <button onClick={this.props.handleInit}> Init</button>
+                {/*<button onClick={this.props.handleIncrease}> Increase</button>*/}
+                {/*<button onClick={this.props.handleDecrease}> Decrease</button>*/}
+                {/*<button onClick={() => this.props.handleInit(this.props.defaultValue)}> Init</button>*/}
             </div>
         )
     }
@@ -31,12 +31,10 @@ function mapStateToProps(state) {
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({
-        handleIncrease: increaseCount,
-        handleDecrease: decreaseCount,
-        handleInit: initCount,
-    }, dispatch)
-}
+const mapDispatchToProps = (dispatch) => ({
+    handleIncrease: () => dispatch(increaseCount()),
+    handleDecrease: () => dispatch(decreaseCount()),
+    handleInit: (value) => dispatch(initCount(value))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);

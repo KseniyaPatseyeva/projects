@@ -1,12 +1,5 @@
 import {INCREMENT, DECREMENT, INIT} from '../actions/CounterActions'
 
-function initState(state, value) {
-    const {count} = state;
-    return ({
-        count: value
-    })
-}
-
 function handleChange(state, change) {
     const {count} = state;
     return ({
@@ -22,7 +15,10 @@ export default function counter(state = 0, action) {
         case DECREMENT:
             return handleChange(state, -1);
         case INIT:
-            return initState(state, 10);
+            return{
+                count: action.payload
+            };
+
         default:
             return state;
     }

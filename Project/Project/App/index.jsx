@@ -3,13 +3,13 @@ import {render} from 'react-dom'
 import {Provider} from 'react-redux'
 import {createStore} from 'redux'
 import reducers from './reducers';
-import CounterComponent from "./containers/CounterComponent";
+import App from './components/App';
 
-const store = createStore(reducers, 42);
+const store = createStore(reducers);
 
 render(
     <Provider store={store}>
-        <CounterComponent defaultValue={10}/>
+        <App/>
     </Provider>,
     document.getElementById('root')
-)
+);

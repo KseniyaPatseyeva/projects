@@ -5,9 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="App\App.js" />
     <Content Include="App\index.jsx" />
-    <Content Include="App\ListBox.jsx" />
   </ItemGroup>
 
   <ItemGroup>
