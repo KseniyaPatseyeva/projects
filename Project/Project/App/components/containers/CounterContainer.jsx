@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import {increaseCount, decreaseCount, initCount} from '../actions/CounterActions';
+import {increaseCount, decreaseCount, initCount} from '../../actions/counterActions';
 
 class Counter extends PureComponent {
 
