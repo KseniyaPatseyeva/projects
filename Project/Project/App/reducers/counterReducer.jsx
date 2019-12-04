@@ -1,4 +1,4 @@
-import { INCREMENT, DECREMENT, INIT } from "./actionTypes";
+import { INCREMENT, DECREMENT, INIT } from '../actions/actionTypes'
 
 function handleChange(state, change) {
     const {count} = state;
@@ -8,7 +8,6 @@ function handleChange(state, change) {
 }
 
 export default function counter(state = 0, action) {
-    const {count} = state;
     switch (action.type) {
         case INCREMENT:
             return handleChange(state, 1);

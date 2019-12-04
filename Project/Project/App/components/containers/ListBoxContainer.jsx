@@ -1,18 +1,34 @@
-import connect from "react-redux/lib/connect/connect";
-import React, {PureComponent} from "react";
-import * as listAction from "../../actions/listActions";
+import React, {PureComponent} from 'react';
+import {connect} from 'react-redux';
+import * as carAction from "../../actions/listActions";
 
-class ListBox extends PureComponent {
+class App extends PureComponent {
 
-    handleSubmit(e){
-        // e.preventDefault();
-        // let  = {
-        //     name: this.state.name
-        // }
-        // this.setState({
-        //     name: ''
-        // });
-        this.props.addCarInfo();
+    constructor(props) {
+        super(props);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+
+        this.state = {
+            licensePlate: ''
+        }
+    }
+
+    handleChange(e) {
+        this.setState({
+            licensePlate: e.target.value
+        })
+    }
+
+    handleSubmit(e) {
+        e.preventDefault();
+        let car = {
+            licensePlate: this.state.licensePlate
+        };
+        this.setState({
+            licensePlate: ''
+        });
+        this.props.createCar(car);
     }
 
     listView(data, index) {
@@ -20,11 +36,11 @@ class ListBox extends PureComponent {
             <div>
                 <div>
                     <li key={index}>
-                        {data.name}
+                        {data.licensePlate}
                     </li>
                 </div>
-                <div>
-                    <button onClick={(e) => this.deleteItem(e, index)}>
+                <div className>
+                    <button onClick={(e) => this.deleteCar(e, index)}>
                         Remove
                     </button>
                 </div>
@@ -32,33 +48,37 @@ class ListBox extends PureComponent {
         )
     }
 
-    deleteItem(e, index) {
+    deleteCar(e, index) {
         e.preventDefault();
-        this.props.deleteCarInfo(index);
+        this.props.deleteCar(index);
     }
 
     render() {
         return (
-            <div className="ListBox">
-                <div className="ListBox-Title">
-                    <b>Last Actions</b>
-                </div>
+            <div>
+                <form onSubmit={this.handleSubmit}>
+                    <input type="text" onChange={this.handleChange} value={this.state.licensePlate}/><br/>
+                    <input type="submit" value="ADD"/>
+                </form>
+                {<ul>
+                    {this.props.cars.map((car, i) => this.listView(car, i))}
+                </ul>}
             </div>
         )
     }
-
 }
 
-function mapStateToProps(state) {
-    return {}
-}
+const mapStateToProps = (state, ownProps) => {
+    return {
+        cars: state.cars
+    }
+};
 
-const mapDispatchToProps = dispatch => ({
-    addCarInfo: (licensePlate, datetime) => dispatch(listAction.addCarInfo(licensePlate, datetime)),
-    deleteCarInfo: index => dispatch(listAction.deleteCarInfo(index))
-});
+const mapDispatchToProps = (dispatch) => {
+    return {
+        createCar: car => dispatch(carAction.createCar(car)),
+        deleteCar: index => dispatch(carAction.deleteCar(index))
+    }
+};
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ListBox)
+export default connect(mapStateToProps, mapDispatchToProps)(App);

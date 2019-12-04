@@ -1,21 +1,21 @@
-import { CAR_ARRIVED, CAR_LEFT } from "./actionTypes";
+import { GET_ALL_CARS, CAR_ARRIVED, REMOVE_CAR } from "./actionTypes";
 
 let nextCarInfoId = 0;
 
-export const addCarInfo = (licensePlate, datetime) => {
+export const createCar = (car) => {
     return {
         type: CAR_ARRIVED,
         payload: {
-            id: nextCarInfoId++,
-            licensePlate,
-            datetime
+            car: car
         }
     }
 };
 
-export const deleteCarInfo = (id) => {
+export const deleteCar = (id) => {
     return {
-        type: CAR_LEFT,
-        payload: id
+        type: REMOVE_CAR,
+        payload: {
+            id: id
+        }
     }
-};
+}

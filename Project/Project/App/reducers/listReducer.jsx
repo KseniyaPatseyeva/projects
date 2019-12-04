@@ -1,19 +1,15 @@
-import {CAR_ARRIVED, CAR_LEFT} from "../actions/actionTypes";
+import {CAR_ARRIVED, REMOVE_CAR} from "../actions/actionTypes";
 
-export default function processList(state = [], action) {
-    switch (action) {
+export default (state = [], action) => {
+    switch (action.type){
         case CAR_ARRIVED:
             return [
                 ...state,
-                {
-                    id: action.payload.id,
-                    licensePlate: action.payload.licensePlate,
-                    datetime: action.payload.datetime
-                }
+                Object.assign({}, action.payload.car)
             ];
-        case CAR_LEFT:
-            return state.filter((data, i) => i !== action.payload);
+        case REMOVE_CAR:
+            return state.filter((data, i) => i !== action.payload.id);
         default:
             return state;
     }
-}
+};
