@@ -1,8 +1,10 @@
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
-import * as carAction from "../../actions/listActions";
+import * as carAction from '../../actions/listActions';
+import store from '../../'
+import {decreaseCount, increaseCount} from "../../actions/counterActions";
 
-class App extends PureComponent {
+class ListBox extends PureComponent {
 
     constructor(props) {
         super(props);
@@ -29,6 +31,7 @@ class App extends PureComponent {
             licensePlate: ''
         });
         this.props.createCar(car);
+        store.dispatch(increaseCount())
     }
 
     listView(data, index) {
@@ -51,6 +54,7 @@ class App extends PureComponent {
     deleteCar(e, index) {
         e.preventDefault();
         this.props.deleteCar(index);
+        store.dispatch(decreaseCount())
     }
 
     render() {
@@ -81,4 +85,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(ListBox);

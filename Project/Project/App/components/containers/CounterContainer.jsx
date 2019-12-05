@@ -1,6 +1,5 @@
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 
 import {increaseCount, decreaseCount, initCount} from '../../actions/counterActions';
 
