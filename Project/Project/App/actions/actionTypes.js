@@ -4,6 +4,5 @@ export const DECREMENT = 'DECREMENT';
 export const INIT = 'INIT';
 
 // List
-export const GET_ALL_CARS = 'GET_ALL_CARS';
-export const CAR_ARRIVED = 'CAR_ARRIVED';
-export const REMOVE_CAR = 'REMOVE_CAR';
+export const ENQUEUE_MESSAGE = 'ENQUEUE_MESSAGE';
+export const DEQUEUE_MESSAGE = 'DEQUEUE_MESSAGE';

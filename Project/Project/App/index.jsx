@@ -11,7 +11,7 @@ const store = createStore(reducers);
 render(
     <Provider store={store}>
         <ListBox/>
-        <CounterComponent defaultValue={42}/>
+        <CounterComponent defaultValue={1}/>
     </Provider>,
     document.getElementById('root')
 );

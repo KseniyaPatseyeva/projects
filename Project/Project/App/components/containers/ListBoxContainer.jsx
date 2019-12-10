@@ -8,64 +8,43 @@ class ListBox extends PureComponent {
 
     constructor(props) {
         super(props);
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-
-        this.state = {
-            licensePlate: ''
-        }
+        this.handleMessage = this.handleMessage.bind(this);
     }
 
-    handleChange(e) {
-        this.setState({
-            licensePlate: e.target.value
-        })
-    }
-
-    handleSubmit(e) {
+    handleMessage(e, message, licensePlate, datetime) {
         e.preventDefault();
-        let car = {
-            licensePlate: this.state.licensePlate
-        };
-        this.setState({
-            licensePlate: ''
-        });
-        this.props.createCar(car);
-        store.dispatch(increaseCount())
+        if (this.props.cars.length === 10) {
+            this.deleteCar(this.props.cars.length - 1);
+        }
+
+        this.props.enqueueMessage(message, licensePlate, datetime);
+        store.dispatch(increaseCount());
     }
 
     listView(data, index) {
         return (
-            <div>
-                <div>
-                    <li key={index}>
-                        {data.licensePlate}
-                    </li>
-                </div>
-                <div className>
-                    <button onClick={(e) => this.deleteCar(e, index)}>
-                        Remove
-                    </button>
-                </div>
-            </div>
+            <li key={index}>
+                {data.message} : {data.car}, {data.datetime}
+            </li>
         )
     }
 
-    deleteCar(e, index) {
-        e.preventDefault();
-        this.props.deleteCar(index);
+    deleteCar(index) {
+        this.props.dequeueMessage(index);
         store.dispatch(decreaseCount())
     }
 
     render() {
         return (
             <div>
-                <form onSubmit={this.handleSubmit}>
-                    <input type="text" onChange={this.handleChange} value={this.state.licensePlate}/><br/>
-                    <input type="submit" value="ADD"/>
+                <form>
+                    <input type="submit" value="ARRIVE"
+                           onClick={e => this.handleMessage(e, "Car arrived", "someplate", 'now')}/>
+                    <input type="submit" value="LEFT"
+                           onClick={e => this.handleMessage(e, "Car left", "someplate", 'now')}/>
                 </form>
                 {<ul>
-                    {this.props.cars.map((car, i) => this.listView(car, i))}
+                    {this.props.cars.slice(0).reverse().map((car, i) => this.listView(car, i))}
                 </ul>}
             </div>
         )
@@ -80,8 +59,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        createCar: car => dispatch(carAction.createCar(car)),
-        deleteCar: index => dispatch(carAction.deleteCar(index))
+        enqueueMessage: (message, licensePlate, datetime) => dispatch(carAction.enqueueMessage(message, licensePlate, datetime)),
+        dequeueMessage: index => dispatch(carAction.dequeueMessage(index))
     }
 };
 

@@ -1,19 +1,21 @@
-import { GET_ALL_CARS, CAR_ARRIVED, REMOVE_CAR } from "./actionTypes";
+import { ENQUEUE_MESSAGE, DEQUEUE_MESSAGE } from "./actionTypes";
 
 let nextCarInfoId = 0;
 
-export const createCar = (car) => {
+export const enqueueMessage = (message, car, datetime) => {
     return {
-        type: CAR_ARRIVED,
+        type: ENQUEUE_MESSAGE,
         payload: {
-            car: car
+            message: message,
+            car: car,
+            datetime: datetime
         }
     }
 };
 
-export const deleteCar = (id) => {
+export const dequeueMessage = (id) => {
     return {
-        type: REMOVE_CAR,
+        type: DEQUEUE_MESSAGE,
         payload: {
             id: id
         }
