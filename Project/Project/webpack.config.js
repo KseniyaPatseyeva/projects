@@ -4,10 +4,10 @@ module.exports = {
     mode: 'development',
     entry: { main: './App/index.jsx' },
     output: {
-        path: path.resolve(__dirname, "wwwroot/dist"),
-        filename: "bundle.js",
-        publicPath: "dist/"
+        path: __dirname + "/wwwroot/dist",
+        filename: "bundle.js"
     },
+    devtool: 'source-map',
     resolve: {
         extensions: ['*', '.js', '.jsx']
     },

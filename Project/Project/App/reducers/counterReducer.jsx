@@ -1,4 +1,4 @@
-import * as actionTypes from '../actions/actionTypes'
+import {INCREMENT, DECREMENT, INIT} from '../actions/actionTypes'
 
 function handleChange(state, change) {
     const {count} = state;
@@ -8,13 +8,12 @@ function handleChange(state, change) {
 }
 
 export default function counter(state = 0, action) {
-    const {count} = state;
     switch (action.type) {
-        case actionTypes.INCREMENT:
+        case INCREMENT:
             return handleChange(state, 1);
-        case actionTypes.DECREMENT:
+        case DECREMENT:
             return handleChange(state, -1);
-        case actionTypes.INIT:
+        case INIT:
             return {
                 count: action.payload
             };

@@ -1,6 +1,5 @@
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
-import {bindActionCreators} from 'redux';
 
 import {increaseCount, decreaseCount, initCount} from '../../actions/counterActions';
 
@@ -9,6 +8,8 @@ class Counter extends PureComponent {
     componentDidMount() {
         if (this.props.defaultValue) {
             this.props.handleInit(this.props.defaultValue);
+        } else {
+            this.props.handleInit(0);
         }
     }
 

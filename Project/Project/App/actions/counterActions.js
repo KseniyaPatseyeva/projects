@@ -1,20 +1,20 @@
-import * as actionTypes from '../actions/actionTypes'
+import {INCREMENT, DECREMENT, INIT} from "./actionTypes";
 
 export function increaseCount() {
     return {
-        type: actionTypes.INCREMENT
+        type: INCREMENT
     };
 }
 
 export function decreaseCount() {
     return {
-        type: actionTypes.DECREMENT
+        type: DECREMENT
     };
 }
 
 export function initCount(value) {
     return {
-        type: actionTypes.INIT,
+        type: INIT,
         payload: value
     };
 }
