@@ -1,7 +1,7 @@
 import {ENQUEUE_MESSAGE, DEQUEUE_MESSAGE} from "../actions/actionTypes";
 
 export default (state = [], action) => {
-    switch (action.type){
+    switch (action.type) {
         case ENQUEUE_MESSAGE:
             return [
                 ...state,

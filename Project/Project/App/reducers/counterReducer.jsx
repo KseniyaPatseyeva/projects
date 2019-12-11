@@ -1,4 +1,4 @@
-import { INCREMENT, DECREMENT, INIT } from '../actions/actionTypes'
+import {INCREMENT, DECREMENT, INIT} from '../actions/actionTypes'
 
 function handleChange(state, change) {
     const {count} = state;

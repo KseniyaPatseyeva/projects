@@ -1,4 +1,4 @@
-import { INCREMENT, DECREMENT, INIT } from "./actionTypes";
+import {INCREMENT, DECREMENT, INIT} from "./actionTypes";
 
 export function increaseCount() {
     return {
