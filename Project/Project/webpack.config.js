@@ -7,6 +7,7 @@ module.exports = {
         path: __dirname + "/wwwroot/dist",
         filename: "bundle.js"
     },
+    devtool: 'source-map',
     resolve: {
         extensions: ['*', '.js', '.jsx']
     },

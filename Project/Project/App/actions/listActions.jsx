@@ -1,17 +1,26 @@
-import { ENQUEUE_MESSAGE, DEQUEUE_MESSAGE } from "./actionTypes";
+import {ENQUEUE_MESSAGE, DEQUEUE_MESSAGE, CAR_LEFT, CAR_ARRIVED} from "./actionTypes";
+import {decreaseCount, increaseCount} from "./counterActions";
 
-let nextCarInfoId = 0;
-
-export const enqueueMessage = (message, car, datetime) => {
-    return {
-        type: ENQUEUE_MESSAGE,
-        payload: {
-            message: message,
-            car: car,
-            datetime: datetime
+export function enqueueMessage(message, car, datetime) {
+    return (dispatch) => {
+        dispatch({
+            type: ENQUEUE_MESSAGE,
+            payload: {
+                message: message,
+                car: car,
+                datetime: datetime
+            }
+        });
+        switch (message) {
+            case CAR_LEFT:
+                dispatch(decreaseCount());
+                break;
+            case CAR_ARRIVED:
+                dispatch(increaseCount());
+                break;
         }
     }
-};
+}
 
 export const dequeueMessage = (id) => {
     return {
@@ -20,4 +29,4 @@ export const dequeueMessage = (id) => {
             id: id
         }
     }
-}
+};

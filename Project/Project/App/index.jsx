@@ -1,19 +1,19 @@
 import React from 'react'
 import {render} from 'react-dom'
 import {Provider} from 'react-redux'
-import {createStore} from 'redux'
+import {createStore, applyMiddleware, compose} from 'redux'
+import thunk from 'redux-thunk';
 import reducers from './reducers';
 import CounterComponent from "./components/containers/CounterContainer";
 import ListBox from "./components/containers/ListBoxContainer";
 
-const store = createStore(reducers);
+const store = createStore(reducers, compose(applyMiddleware(thunk)));
+export default store;
 
 render(
     <Provider store={store}>
         <ListBox/>
-        <CounterComponent defaultValue={1}/>
+        <CounterComponent/>
     </Provider>,
     document.getElementById('root')
 );
-
-export default store;

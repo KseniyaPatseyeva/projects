@@ -8,6 +8,8 @@ class Counter extends PureComponent {
     componentDidMount() {
         if (this.props.defaultValue) {
             this.props.handleInit(this.props.defaultValue);
+        } else {
+            this.props.handleInit(0);
         }
     }
 
