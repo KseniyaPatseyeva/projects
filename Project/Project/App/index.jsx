@@ -6,9 +6,11 @@ import thunk from 'redux-thunk';
 import reducers from './reducers';
 import CounterComponent from "./components/containers/CounterContainer";
 import ListBox from "./components/containers/ListBoxContainer";
+import {enqueueMessage} from "./actions/listActions";
+import {CAR_ARRIVED} from "./actions/actionTypes";
 
-const store = createStore(reducers, compose(applyMiddleware(thunk)));
-export default store;
+export const store = createStore(reducers, compose(applyMiddleware(thunk)));
+import dateTime from "date-time";
 
 render(
     <Provider store={store}>
@@ -17,3 +19,6 @@ render(
     </Provider>,
     document.getElementById('root')
 );
+
+store.dispatch(enqueueMessage(CAR_ARRIVED, '1234', dateTime()));
+store.dispatch(enqueueMessage(CAR_ARRIVED, '1224', dateTime()));
