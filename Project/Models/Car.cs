@@ -2,7 +2,7 @@
 
 namespace Models
 {
-    class Car
+    public class Car
     {
         public int Id { get; set; }
         public string LicensePlate { get; set; }
