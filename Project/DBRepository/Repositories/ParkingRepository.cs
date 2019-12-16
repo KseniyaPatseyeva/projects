@@ -26,9 +26,13 @@ namespace DBRepository.Repositories
             return result;
         }
 
-        public Task AddCar(Car car)
+        public async Task AddCar(Car car)
         {
-            throw new System.NotImplementedException();
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                context.Cars.Add(car);
+                await context.SaveChangesAsync();
+            }
         }
     }
 }
