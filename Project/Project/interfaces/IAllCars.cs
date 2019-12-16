@@ -9,6 +9,6 @@ namespace Project.interfaces
     public interface IAllCars
     {
         IEnumerable<Car> Cars {get;}
-        Car getObjCar(int ID);
+        Car GetObjCar(int id);
     }
 }

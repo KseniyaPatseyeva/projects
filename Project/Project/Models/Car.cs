@@ -1,10 +1,13 @@
-﻿namespace Project.Models
+﻿using System;
+
+namespace Project.Models
 {
     public class Car
     {
-        public int ID { get; set; }
-        public string carNumber { get; set; }
+        public int Id { get; set; }
+        public string LicensePlate { get; set; }
+        public DateTime ArrivedTime { get; set; }
 
-        public bool isIN { get; set; }
+        public bool IsIn { get; set; }
     }
 }
