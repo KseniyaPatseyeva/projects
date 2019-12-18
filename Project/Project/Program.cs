@@ -1,7 +1,5 @@
 using System.IO;
-using DBRepository.Interfaces;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -18,12 +16,6 @@ namespace Project
                 .AddJsonFile("appsettings.json");
             var config = builder.Build();
 
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-                var factory = services.GetRequiredService<IRepositoryContextFactory>();
-                factory.CreateDbContext(config.GetConnectionString("DefaultConnection")).Database.Migrate();
-            }
 
             host.Run();
         }

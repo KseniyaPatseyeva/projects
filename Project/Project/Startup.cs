@@ -3,13 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using DBRepository.Factories;
-using DBRepository.Interfaces;
-using DBRepository.Repositories;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
-using Project.Services.Implementation;
-using Project.Services.Interfaces;
 
 namespace Project
 {
@@ -25,17 +20,7 @@ namespace Project
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddAutoMapper(typeof(Startup));
             services.AddMvc(options => options.EnableEndpointRouting = false);
-
-            services.AddScoped<IRepositoryContextFactory, RepositoryContextFactory>();
-            services.AddScoped<IParkingRepository>(provider =>
-                new ParkingRepository(Configuration.GetConnectionString("DefaultConnection"),
-                    provider.GetService<IRepositoryContextFactory>()));
-            services.AddSingleton(Configuration);
-            services.AddScoped<IParkingService, ParkingService>();
-
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
