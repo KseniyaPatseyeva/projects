@@ -36,9 +36,4 @@
     <None Include="wwwroot\favicon.ico" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DBRepository\DBRepository.csproj" />
-    <ProjectReference Include="..\Models\Models.csproj" />
-  </ItemGroup>
-
 </Project>
