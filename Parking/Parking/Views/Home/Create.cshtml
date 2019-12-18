@@ -1,0 +1,18 @@
+﻿@model Parking.Models.Car
+@{
+    ViewBag.Title = "Добавление машины";
+}
+<form asp-action="create" asp-controller="home">
+    <div class="form-group">
+        <label asp-for="carNumber" class="control-label">Номер машины</label>
+        <input type="text" asp-for="carNumber" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="isIn" class="control-label">Присутствие</label>
+        @Html.CheckBoxFor(Model => Model.isIn)
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Отправить" class="btn btn-default" />
+    </div>
+</form>
+
