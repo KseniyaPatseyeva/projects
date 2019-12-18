@@ -2,23 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/css/normalize.css">
-    <link rel="stylesheet" href="/css/index.css">
-    <link rel="stylesheet" href ="/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="/css/style.css"/>
+    <meta name="viewport" content="width=device-width"/>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <base href="/" />
+    <script type="text/javascript">
+        constants = {
+            page: '@Url.RouteUrl("DefaultApi", new {controller = "Parking", action = "GetCars" })'
+        }
+    </script>
     <title>Project</title>
 </head>
 <body>
-<header>
-    <h1>Project</h1>
-</header>
-<main>
     <div id="root"></div>
     <script src="/dist/bundle.js"></script>
-</main>
-<footer>
-    <p>.NET Student Labs 2019</p>
-    <p>by Artyom Lozovski and Kseniya Patseyeva</p>
-</footer>
 </body>
 </html>

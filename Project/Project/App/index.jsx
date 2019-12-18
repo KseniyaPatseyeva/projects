@@ -1,21 +1,23 @@
+import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react'
 import {render} from 'react-dom'
 import {Provider} from 'react-redux'
 import {createStore, applyMiddleware, compose} from 'redux'
 import thunk from 'redux-thunk';
 import reducers from './reducers';
-import CounterComponent from "./components/containers/CounterContainer";
-import ListBox from "./components/containers/ListBoxContainer";
+import App from "./components/containers/App";
 import {enqueueMessage} from "./actions/listActions";
 import {CAR_ARRIVED} from "./actions/actionTypes";
+import dateTime from "date-time";
+import {BrowserRouter as Router} from "react-router-dom";
 
 export const store = createStore(reducers, compose(applyMiddleware(thunk)));
-import dateTime from "date-time";
 
 render(
     <Provider store={store}>
-        <ListBox/>
-        <CounterComponent/>
+        <Router basename="/">
+            <App/>
+        </Router>
     </Provider>,
     document.getElementById('root')
 );

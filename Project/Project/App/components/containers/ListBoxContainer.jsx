@@ -1,6 +1,8 @@
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 import * as listAction from '../../actions/listActions';
+import {Container, ListGroup, Pagination} from "react-bootstrap";
+import Counter from "./CounterContainer";
 
 class ListBox extends PureComponent {
 
@@ -9,20 +11,37 @@ class ListBox extends PureComponent {
             this.props.dequeueMessage(0)
         }
         return (
-            <a href="#" className="list-group-item list-group-item-action flex-column align-items-start active" key={index}>
-                <div className="d-flex w-100 justify-content-between">
+            <ListGroup.Item action href="#" className="flex-column align-items-start active"
+               key={index}>
+                <Container>
                     <h5 className="mb-1">{data.message}: {data.car}</h5>
                     <small>{data.datetime}</small>
-                </div>
-            </a>
+                </Container>
+            </ListGroup.Item>
+        )
+    }
+
+    paginationBasic() {
+        return (
+            <div>
+                <Pagination.First/>
+                <Pagination.Prev/>
+                <Pagination>
+                    {/*{items}*/}
+                </Pagination>
+                <Pagination.Next/>
+                <Pagination.Last/>
+            </div>
         )
     }
 
     render() {
         return (
-            <div className="list-group">
-                <h3 className="list-group__caption">Last Actions</h3>
-                {this.props.cars.slice(0).reverse().map((car, i) => this.listView(car, i))}
+            <div>
+                <Counter/>
+                <ListGroup>
+                    {this.props.cars.slice(0).reverse().map((car, i) => this.listView(car, i))}
+                </ListGroup>
             </div>
         )
     }

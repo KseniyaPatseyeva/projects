@@ -1,5 +1,13 @@
-import {ENQUEUE_MESSAGE, DEQUEUE_MESSAGE, CAR_LEFT, CAR_ARRIVED} from "./actionTypes";
+import {
+    ENQUEUE_MESSAGE,
+    DEQUEUE_MESSAGE,
+    GET_MESSAGES_ERROR,
+    GET_MESSAGES_SUCCESS,
+    CAR_LEFT,
+    CAR_ARRIVED
+} from "./actionTypes";
 import {decreaseCount, increaseCount} from "./counterActions";
+import "isomorphic-fetch"
 
 export function enqueueMessage(message, car, datetime) {
     return (dispatch) => {

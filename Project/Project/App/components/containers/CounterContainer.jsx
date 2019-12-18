@@ -15,9 +15,8 @@ class Counter extends PureComponent {
 
     render() {
         return (
-            <div className="jumbotron">
-                <h1 className="display-3"> Counter </h1>
-                <p className="display-3"> {this.props.count} </p>
+            <div>
+                <h6> Counter {this.props.count}</h6>
                 {/*<button onClick={this.props.handleIncrease}> Increase</button>*/}
                 {/*<button onClick={this.props.handleDecrease}> Decrease</button>*/}
                 {/*<button onClick={() => this.props.handleInit(this.props.defaultValue)}> Init</button>*/}
