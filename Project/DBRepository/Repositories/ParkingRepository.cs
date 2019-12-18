@@ -7,7 +7,7 @@ using Models;
 
 namespace DBRepository.Repositories
 {
-    class ParkingRepository : BaseRepository, IParkingRepository
+    public class ParkingRepository : BaseRepository, IParkingRepository
     {
         public ParkingRepository(string connectionString, IRepositoryContextFactory contextFactory)
             : base(connectionString, contextFactory)
@@ -16,13 +16,16 @@ namespace DBRepository.Repositories
 
         public async Task<Page<Car>> GetCars(int index, int pageSize)
         {
-            var result = new Page<Car> { CurrentPage = index, PageSize = pageSize };
+            var result = new Page<Car>() { CurrentPage = index, PageSize = pageSize };
+
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                result.TotalPages = await context.Cars.CountAsync();
-                result.Records = await context.Cars.ToListAsync();
+                var query = context.Cars.AsQueryable();
 
+                result.TotalPages = await query.CountAsync();
+                result.Records = await query.OrderByDescending(car => car.ArrivedTime).Skip(index * pageSize).Take(pageSize).ToListAsync();
             }
+
             return result;
         }
 

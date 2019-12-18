@@ -4,7 +4,7 @@ using DBRepository.Factories;
 using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore.Design;
 
-namespace Project.Factory
+namespace Project
 {
     public class DesignTimeRepositoryContextFactory : IDesignTimeDbContextFactory<RepositoryContext>
     {

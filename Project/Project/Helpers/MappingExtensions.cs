@@ -11,9 +11,7 @@ namespace Project.Helpers
             IEnumerable<TDestination> sourceList =
                 mapper.Map<IEnumerable<TSource>, IEnumerable<TDestination>>(page?.Records);
             Page<TDestination> pagedResult = new Page<TDestination>(sourceList)
-            {
-                CurrentPage = page.CurrentPage, PageSize = page.PageSize, TotalPages = page.TotalPages
-            };
+                {CurrentPage = page.CurrentPage, PageSize = page.PageSize, TotalPages = page.TotalPages};
             return pagedResult;
         }
     }

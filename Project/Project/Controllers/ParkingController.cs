@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 namespace Project.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
     public class ParkingController : Controller
     {
         private IParkingService _parkingService;

@@ -9,13 +9,6 @@ namespace DBRepository
         {
         }
 
-        public DbSet<User> Users { get; set; }
         public DbSet<Car> Cars { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<User>().Property(u => u.Login).IsRequired();
-            modelBuilder.Entity<User>().Property(u => u.Password).IsRequired();
-        }
     }
 }
