@@ -9,15 +9,8 @@ namespace Project
     public class Program
     {
         public static void Main(string[] args)
-        {
-            var host = CreateHostBuilder(args).Build();
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");
-            var config = builder.Build();
-
-
-            host.Run();
+        { 
+            CreateHostBuilder(args).Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
