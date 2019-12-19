@@ -2,12 +2,11 @@ import {GET_MESSAGES_SUCCESS, GET_MESSAGES_ERROR} from '../actions/actionTypes'
 
 const initialState = {
     data: {
-        currentPage: 0,
-        totalPages: 0,
-        pageSize: 0,
-        records: []
-    },
-    error: ''
+        id: 0,
+        licensePlate: '',
+        arrivedTime:'',
+        leftTime: ''
+    }
 };
 
 export default function table(state = initialState, action) {

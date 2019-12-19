@@ -1,10 +1,9 @@
 import {GET_MESSAGES_ERROR, GET_MESSAGES_SUCCESS} from "./actionTypes";
 
-export function getMessages(pageIndex = 1) {
+export function getMessages() {
     return (dispatch) => {
-        let queryTrailer = '?pageIndex=' + pageIndex;
-        fetch(window.constants.page + queryTrailer, {
-            method: 'POST',
+        fetch('api/Cars', {
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
             }

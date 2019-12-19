@@ -21,19 +21,6 @@ class ListBox extends PureComponent {
         )
     }
 
-    paginationBasic() {
-        return (
-            <div>
-                <Pagination.First/>
-                <Pagination.Prev/>
-                <Pagination>
-                    {/*{items}*/}
-                </Pagination>
-                <Pagination.Next/>
-                <Pagination.Last/>
-            </div>
-        )
-    }
 
     render() {
         return (

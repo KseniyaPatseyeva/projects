@@ -1,4 +1,4 @@
-import {ENQUEUE_MESSAGE, DEQUEUE_MESSAGE, GET_MESSAGES_SUCCESS} from "../actions/actionTypes";
+import {ENQUEUE_MESSAGE, DEQUEUE_MESSAGE} from "../actions/actionTypes";
 
 export default (state = [], action) => {
     switch (action.type) {
@@ -9,8 +9,6 @@ export default (state = [], action) => {
             ];
         case DEQUEUE_MESSAGE:
             return state.filter((data, i) => i !== action.payload.id);
-        case GET_MESSAGES_SUCCESS:
-            return {...state, data: action.payload};
         default:
             return state;
     }
