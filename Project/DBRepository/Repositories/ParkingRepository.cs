@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using DBRepository.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Models;
 
@@ -14,27 +15,11 @@ namespace DBRepository.Repositories
         {
         }
 
-        public async Task<Page<Car>> GetCars(int index, int pageSize)
-        {
-            var result = new Page<Car>() { CurrentPage = index, PageSize = pageSize };
-
-            using (var context = ContextFactory.CreateDbContext(ConnectionString))
-            {
-                var query = context.Cars.AsQueryable();
-
-                result.TotalPages = await query.CountAsync();
-                result.Records = await query.OrderByDescending(car => car.ArrivedTime).Skip(index * pageSize).Take(pageSize).ToListAsync();
-            }
-
-            return result;
-        }
-
-        public async Task AddCar(Car car)
+        public async Task<ActionResult<IEnumerable<Car>>> GetCars()
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                context.Cars.Add(car);
-                await context.SaveChangesAsync();
+                return await context.Cars.ToListAsync();
             }
         }
     }

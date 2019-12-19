@@ -1,15 +1,22 @@
+using DBRepository;
+using DBRepository.Factories;
+using DBRepository.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using React.AspNet;
+using JavaScriptEngineSwitcher.ChakraCore;
+using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
 
 namespace Project
 {
     public class Startup
     {
-        public Microsoft.Extensions.Configuration.IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; }
 
         public Startup(Microsoft.Extensions.Configuration.IConfiguration configuration)
         {
@@ -19,7 +26,16 @@ namespace Project
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string connection = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<RepositoryContext>(options =>
+                options.UseSqlServer(connection));
+            services.AddScoped<IRepositoryContextFactory, RepositoryContextFactory>();
             services.AddMvc(options => options.EnableEndpointRouting = false);
+            services.AddReact();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddJsEngineSwitcher(options => options.DefaultEngineName = ChakraCoreJsEngine.EngineName).AddChakraCore();
+
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,7 +50,7 @@ namespace Project
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
             }
-
+            app.UseReact(config => { });
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
