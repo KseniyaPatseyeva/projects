@@ -1,0 +1,15 @@
+﻿@model Parking.Models.Car
+@{
+    ViewBag.Title = Model.carNumber;
+}
+<h2>Пользователь @Model.carNumber</h2>
+<div>
+    <dl class="dl-horizontal">
+        <dt>Идентификатор</dt>
+        <dd>@Model.Id</dd>
+
+        <dt>Присутствие</dt>
+        <dd>@Model.isIn</dd>
+    </dl>
+</div>
+
