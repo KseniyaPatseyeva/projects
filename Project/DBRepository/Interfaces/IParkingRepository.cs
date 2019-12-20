@@ -7,6 +7,6 @@ namespace DBRepository.Interfaces
 {
     public interface IParkingRepository
     {
-        Task<ActionResult<IEnumerable<Car>>> GetCars();
+        Task<ActionResult<IEnumerable<Message>>> GetMessages();
     }
 }

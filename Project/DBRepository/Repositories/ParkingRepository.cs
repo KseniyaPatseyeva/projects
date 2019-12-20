@@ -15,11 +15,11 @@ namespace DBRepository.Repositories
         {
         }
 
-        public async Task<ActionResult<IEnumerable<Car>>> GetCars()
+        public async Task<ActionResult<IEnumerable<Message>>> GetMessages()
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                return await context.Cars.ToListAsync();
+                return await context.Messages.ToListAsync();
             }
         }
     }

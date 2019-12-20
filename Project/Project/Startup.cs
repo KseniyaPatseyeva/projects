@@ -1,6 +1,7 @@
 using DBRepository;
 using DBRepository.Factories;
 using DBRepository.Interfaces;
+using DBRepository.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,6 +31,7 @@ namespace Project
             services.AddDbContext<RepositoryContext>(options =>
                 options.UseSqlServer(connection));
             services.AddScoped<IRepositoryContextFactory, RepositoryContextFactory>();
+            services.AddScoped<IParkingRepository, ParkingRepository>();
             services.AddMvc(options => options.EnableEndpointRouting = false);
             services.AddReact();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

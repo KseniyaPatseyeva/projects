@@ -9,6 +9,6 @@ namespace DBRepository
         {
         }
 
-        public DbSet<Car> Cars { get; set; }
+        public DbSet<Message> Messages { get; set; }
     }
 }

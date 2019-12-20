@@ -25,10 +25,8 @@ namespace Project
                 var services = scope.ServiceProvider;
 
                 var factory = services.GetRequiredService<IRepositoryContextFactory>();
-                using (var context = factory.CreateDbContext(config.GetConnectionString("DefaultConnection")))
-                {
-                    DbInitializer.Initialize(context);
-                }
+                using var context = factory.CreateDbContext(config.GetConnectionString("DefaultConnection"));
+                DbInitializer.Initialize(context);
             }
             host.Run();
         }
