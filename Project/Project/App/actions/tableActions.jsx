@@ -1,8 +1,8 @@
 import {GET_MESSAGES_ERROR, GET_MESSAGES_SUCCESS} from "./actionTypes";
 
-export function getMessages() {
+export function getMessages(pageIndex) {
     return (dispatch) => {
-        fetch('api/Messages', {
+        fetch('api/Messages/' + pageIndex, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'

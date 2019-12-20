@@ -6,7 +6,23 @@ import {Pagination, Table} from "react-bootstrap";
 class TableBox extends PureComponent {
 
     componentDidMount() {
-        this.props.getMessages();
+        this.props.getMessages(0);
+    }
+
+    handlePageClick(page) {
+        this.props.getMessages(page - 1);
+    }
+
+    pagingView() {
+        let items = [];
+        for (let number = 1; number <= this.props.totalPages; number++) {
+            items.push(
+                <Pagination.Item key={number} active={number === this.props.currentPage + 1}>
+                    {number}
+                </Pagination.Item>,
+            );
+        }
+        return items;
     }
 
     tableView(data, index) {
@@ -36,7 +52,8 @@ class TableBox extends PureComponent {
                     {this.props.messages.map((message, i) => this.tableView(message, i))}
                     </tbody>
                 </Table>
-                <Pagination>
+                <Pagination onChange={this.handlePageClick.bind(this)}>
+                    {this.pagingView()}
                 </Pagination>
             </div>
         );
@@ -45,13 +62,16 @@ class TableBox extends PureComponent {
 
 let mapStateToProps = (state) => {
     return {
-        messages: state.table.data
+        messages: state.table.data.records,
+        currentPage: state.table.data.currentPage,
+        pageSize: state.table.data.pageSize,
+        totalPages: state.table.data.totalPages
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getMessages: () => dispatch(getMessages())
+        getMessages: (page) => dispatch(getMessages(page))
     }
 };
 

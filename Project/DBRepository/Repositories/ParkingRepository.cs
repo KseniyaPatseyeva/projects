@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using DBRepository.Interfaces;
@@ -15,12 +17,17 @@ namespace DBRepository.Repositories
         {
         }
 
-        public async Task<ActionResult<IEnumerable<Message>>> GetMessages()
+        public async Task<Page<Message>> GetMessages(int index, int pageSize)
         {
+            var result = new Page<Message> {CurrentPage = index, PageSize = pageSize};
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                return await context.Messages.ToListAsync();
+                var query = context.Messages.AsQueryable();
+                result.TotalPages = await query.CountAsync() ;
+                result.Records = await query.Skip(index * pageSize).Take(pageSize).ToListAsync();
             }
+
+            return result;
         }
     }
 }
