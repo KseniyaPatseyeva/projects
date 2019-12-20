@@ -2,7 +2,7 @@ import {GET_MESSAGES_ERROR, GET_MESSAGES_SUCCESS} from "./actionTypes";
 
 export function getMessages() {
     return (dispatch) => {
-        fetch('api/Cars', {
+        fetch('api/Messages', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
@@ -11,7 +11,10 @@ export function getMessages() {
             .then((response) => {
                 return response.json();
             }).then((data) => {
-            dispatch({type: GET_MESSAGES_SUCCESS, payload: data});
+            dispatch({
+                type: GET_MESSAGES_SUCCESS,
+                payload: data
+            });
         }).catch((ex) => {
             dispatch({type: GET_MESSAGES_ERROR, payload: ex});
         });

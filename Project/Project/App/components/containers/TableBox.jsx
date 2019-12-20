@@ -1,32 +1,24 @@
 import React, {PureComponent} from 'react';
-import ReactDOM from 'react-dom';
-import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getMessages} from "../../actions/tableActions";
-import {bindActionCreators} from "redux";
 import {Pagination, Table} from "react-bootstrap";
 
 class TableBox extends PureComponent {
 
-    constructor() {
-        super();
-        this.state = {cars: []};
-    }
-
     componentDidMount() {
-        this.loadData();
+        this.props.getMessages();
     }
 
-    loadData() {
-        let xhr = new XMLHttpRequest();
-        xhr.open("get", 'api/Cars', true);
-        xhr.onload = function () {
-            let data = JSON.parse(xhr.responseText);
-            this.setState({ cars: data });
-        }.bind(this);
-        xhr.send();
+    tableView(data, index) {
+        return (
+            <tr key={index}>
+                <td>{data.id}</td>
+                <td>{data.licensePlate}</td>
+                <td>{data.actionType}</td>
+                <td>{data.createdDateTime}</td>
+            </tr>
+        )
     }
-
 
     render() {
         return (
@@ -41,13 +33,7 @@ class TableBox extends PureComponent {
                     </tr>
                     </thead>
                     <tbody>
-                    {this.state.cars.map(function(car){
-                        return (<tr key={car.id}>
-                            <td>{car.id}</td>
-                            <td>{car.licensePlate}</td>
-                            <td>{car.arrivedTime}</td>
-                        </tr>)
-                    })}
+                    {this.props.messages.map((message, i) => this.tableView(message, i))}
                     </tbody>
                 </Table>
                 <Pagination>
@@ -57,17 +43,16 @@ class TableBox extends PureComponent {
     }
 }
 
-let mapProps = (state) => {
+let mapStateToProps = (state) => {
     return {
-        messages: state.table.data,
-        error: state.table.error
+        messages: state.table.data
     }
 };
 
-let mapDispatch = (dispatch) => {
+const mapDispatchToProps = (dispatch) => {
     return {
-        getMessages: bindActionCreators(getMessages, dispatch)
+        getMessages: () => dispatch(getMessages())
     }
 };
 
-export default connect(mapProps, mapDispatch)(TableBox)
+export default connect(mapStateToProps, mapDispatchToProps)(TableBox)

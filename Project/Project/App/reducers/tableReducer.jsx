@@ -1,18 +1,18 @@
 import {GET_MESSAGES_SUCCESS, GET_MESSAGES_ERROR} from '../actions/actionTypes'
 
 const initialState = {
-    data: {
+    data: [{
         id: 0,
         licensePlate: '',
-        arrivedTime:'',
-        leftTime: ''
-    }
+        actionType: '',
+        createdDateTime: ''
+    }]
 };
 
 export default function table(state = initialState, action) {
     switch (action.type) {
         case GET_MESSAGES_SUCCESS:
-            return {...state, data: action.payload, error: ''};
+            return {...state, data: action.payload};
         case GET_MESSAGES_ERROR:
             return {...state, error: action.payload};
         default:
