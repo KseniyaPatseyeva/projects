@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AutoMapper;
 using DBRepository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,11 @@ namespace Project.Services.Implementation
         {
             var pageSize = _config.GetValue<int>("pageSize");
             return await _repository.GetMessages(pageIndex, pageSize); ;
+        }
+
+        public async Task<ActionResult<int>> GetStats(DateTime day, bool isArrived)
+        {
+            return await _repository.GetStats(day, isArrived);
         }
     }
 }

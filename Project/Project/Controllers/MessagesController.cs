@@ -13,7 +13,7 @@ namespace Project.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MessagesController : ControllerBase
+    public class MessagesController
     {
         private readonly IMessageService _service;
 
@@ -34,6 +34,13 @@ namespace Project.Controllers
         public async Task<ActionResult<Page<Message>>> GetMessage(int id = 0)
         {
             return await _service.GetMessages(id);
+        }
+
+        [HttpGet("stats/{date}")]
+        public async Task<ActionResult<int>> GetStats(string date)
+        {
+            DateTime day = Convert.ToDateTime(date);
+            return await _service.GetStats(day, false);
         }
 
 
