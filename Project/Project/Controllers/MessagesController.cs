@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DBRepository;
 using Models;
+using Project.Services.Implementation;
+using Project.Services.Interfaces;
 
 namespace Project.Controllers
 {
@@ -14,19 +15,27 @@ namespace Project.Controllers
     [ApiController]
     public class MessagesController : ControllerBase
     {
-        private readonly RepositoryContext _context;
+        private readonly IMessageService _service;
 
-        public MessagesController(RepositoryContext context)
+        public MessagesController(IMessageService service)
         {
-            _context = context;
+            _service = service;
         }
 
         // GET: api/Messages
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Message>>> GetMessages()
+        public async Task<ActionResult<Page<Message>>> GetMessages()
         {
-            return await _context.Messages.ToListAsync();
+            return await _service.GetMessages(0);
         }
+
+        // GET: api/Messages/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Page<Message>>> GetMessage(int id = 0)
+        {
+            return await _service.GetMessages(id);
+        }
+
 
     }
 }
