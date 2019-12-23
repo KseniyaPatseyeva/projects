@@ -1,28 +1,22 @@
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 import {getMessages} from "../../actions/tableActions";
-import {Pagination, Table} from "react-bootstrap";
+import {Table} from "react-bootstrap";
+import Pagination from "react-js-pagination";
 
 class TableBox extends PureComponent {
+
+    constructor(props){
+        super(props);
+        this.handlePageChange = this.handlePageChange.bind(this);
+    }
 
     componentDidMount() {
         this.props.getMessages(0);
     }
 
-    handlePageClick(page) {
-        this.props.getMessages(page - 1);
-    }
-
-    pagingView() {
-        let items = [];
-        for (let number = 1; number <= this.props.totalPages; number++) {
-            items.push(
-                <Pagination.Item key={number} active={number === this.props.currentPage + 1}>
-                    {number}
-                </Pagination.Item>,
-            );
-        }
-        return items;
+    handlePageChange(pageNumber) {
+        this.props.getMessages(pageNumber - 1);
     }
 
     tableView(data, index) {
@@ -52,9 +46,14 @@ class TableBox extends PureComponent {
                     {this.props.messages.map((message, i) => this.tableView(message, i))}
                     </tbody>
                 </Table>
-                <Pagination onChange={this.handlePageClick.bind(this)}>
-                    {this.pagingView()}
-                </Pagination>
+                <Pagination
+                    activePage={this.props.currentPage + 1}
+                    itemsCountPerPage={this.props.pageSize}
+                    totalItemsCount={this.props.totalPages * this.props.pageSize}
+                    onChange={this.handlePageChange}
+                    itemClass="page-item"
+                    linkClass="page-link"
+                />
             </div>
         );
     }
