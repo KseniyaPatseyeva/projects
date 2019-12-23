@@ -8,7 +8,7 @@ const initialState = {
         records: [{
             id: 0,
             licensePlate: '',
-            actionType: '',
+            isArrived: false,
             createdDateTime: ''
         }]
     },

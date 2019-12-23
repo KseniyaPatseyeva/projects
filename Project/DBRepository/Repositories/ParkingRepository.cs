@@ -24,7 +24,7 @@ namespace DBRepository.Repositories
             {
                 var query = context.Messages.AsQueryable();
                 result.TotalPages = await query.CountAsync() ;
-                result.Records = await query.Skip(index * pageSize).Take(pageSize).ToListAsync();
+                result.Records = await query.OrderByDescending(c=>c.Id).Skip(index * pageSize).Take(pageSize).ToListAsync();
             }
 
             return result;

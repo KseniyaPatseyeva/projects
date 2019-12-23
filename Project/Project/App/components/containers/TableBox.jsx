@@ -6,7 +6,7 @@ import Pagination from "react-js-pagination";
 
 class TableBox extends PureComponent {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.handlePageChange = this.handlePageChange.bind(this);
     }
@@ -20,11 +20,17 @@ class TableBox extends PureComponent {
     }
 
     tableView(data, index) {
+        let action;
+        if (data.isArrived) {
+            action = 'arrived'
+        } else {
+            action = 'left'
+        }
         return (
             <tr key={index}>
                 <td>{data.id}</td>
                 <td>{data.licensePlate}</td>
-                <td>{data.actionType}</td>
+                <td>{action}</td>
                 <td>{data.createdDateTime}</td>
             </tr>
         )
@@ -51,6 +57,7 @@ class TableBox extends PureComponent {
                     itemsCountPerPage={this.props.pageSize}
                     totalItemsCount={this.props.totalPages * this.props.pageSize}
                     onChange={this.handlePageChange}
+                    innerClass="pagination d-flex justify-content-center"
                     itemClass="page-item"
                     linkClass="page-link"
                 />
