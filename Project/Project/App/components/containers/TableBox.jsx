@@ -31,7 +31,7 @@ class TableBox extends PureComponent {
                 <td>{data.id}</td>
                 <td>{data.licensePlate}</td>
                 <td>{action}</td>
-                <td>{data.createdDateTime}</td>
+                <td>{data.createdDateTime.replace('T', ' ')}</td>
             </tr>
         )
     }
