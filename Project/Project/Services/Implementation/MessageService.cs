@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using AutoMapper;
 using DBRepository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -11,8 +11,8 @@ namespace Project.Services.Implementation
 {
     public class MessageService : IMessageService
     {
-        readonly IParkingRepository _repository;
-        readonly IConfiguration _config;
+        private readonly IParkingRepository _repository;
+        private readonly IConfiguration _config;
 
         public MessageService(IParkingRepository repository, IConfiguration configuration)
         {
@@ -25,9 +25,16 @@ namespace Project.Services.Implementation
             return await _repository.GetMessages(pageIndex, pageSize); ;
         }
 
-        public async Task<ActionResult<int>> GetStats(DateTime day, bool isArrived)
+        public async Task<ActionResult<List<StatData>>> GetStats(string start, string end)
         {
-            return await _repository.GetStats(day, isArrived);
+            var startDateTime = Convert.ToDateTime(start);
+            var endDateTime = Convert.ToDateTime(end);
+            var stats = new List<StatData>
+            {
+                new StatData(await _repository.GetStats(startDateTime, endDateTime, true), "Arrived"),
+                new StatData(await _repository.GetStats(startDateTime, endDateTime, false), "Left")
+            };
+            return stats;
         }
     }
 }

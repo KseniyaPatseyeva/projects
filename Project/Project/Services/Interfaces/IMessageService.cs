@@ -1,5 +1,6 @@
-﻿using System;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using DBRepository.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 
@@ -8,6 +9,6 @@ namespace Project.Services.Interfaces
     public interface IMessageService
     {
         Task<ActionResult<Page<Message>>> GetMessages(int pageIndex);
-        Task<ActionResult<int>> GetStats(DateTime day, bool isArrived);
+        Task<ActionResult<List<StatData>>> GetStats(string start, string end);
     }
 }

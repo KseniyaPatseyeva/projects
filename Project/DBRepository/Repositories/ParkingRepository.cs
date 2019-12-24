@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DBRepository.Interfaces;
@@ -7,6 +8,7 @@ using Models;
 
 namespace DBRepository.Repositories
 {
+    
     public class ParkingRepository : BaseRepository, IParkingRepository
     {
         public ParkingRepository(string connectionString, IRepositoryContextFactory contextFactory)
@@ -31,17 +33,16 @@ namespace DBRepository.Repositories
             return result;
         }
 
-        public async Task<int> GetStats(DateTime day, bool isArrived)
+        public async Task<List<DataRecord>> GetStats(DateTime start, DateTime end, bool isArrived)
         {
-            int result;
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                var query = context.Messages.AsQueryable();
+                var query = await context.Messages
+                    .Where(c => c.CreatedDateTime.Date >= start.Date && c.CreatedDateTime.Date <= end.Date && c.IsArrived == isArrived)
+                    .GroupBy(x => x.CreatedDateTime.Date).Select(x => new DataRecord(x.Key.Date.ToString(), x.Count())).ToListAsync();
 
-                result = await query.GroupBy(c => c.IsArrived == isArrived).CountAsync();
+                return query;
             }
-
-            return result;
         }
     }
 }

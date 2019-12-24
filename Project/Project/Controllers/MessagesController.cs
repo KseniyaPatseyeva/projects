@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using DBRepository;
 using Models;
-using Project.Services.Implementation;
 using Project.Services.Interfaces;
 
 namespace Project.Controllers
@@ -36,13 +31,10 @@ namespace Project.Controllers
             return await _service.GetMessages(id);
         }
 
-        [HttpGet("stats/{date}")]
-        public async Task<ActionResult<int>> GetStats(string date)
+        [HttpGet("stats/{start}/{end}")]
+        public async Task<ActionResult<List<StatData>>> GetStats(string start, string end)
         {
-            DateTime day = Convert.ToDateTime(date);
-            return await _service.GetStats(day, false);
+            return await _service.GetStats(start, end);
         }
-
-
     }
 }
