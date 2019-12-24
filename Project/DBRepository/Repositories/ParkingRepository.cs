@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using DBRepository.Interfaces;
@@ -38,8 +39,8 @@ namespace DBRepository.Repositories
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
                 var query = await context.Messages
-                    .Where(c => c.CreatedDateTime.Date >= start.Date && c.CreatedDateTime.Date <= end.Date && c.IsArrived == isArrived)
-                    .GroupBy(x => x.CreatedDateTime.Date).Select(x => new DataRecord(x.Key.Date.ToString(), x.Count())).ToListAsync();
+                    .Where(c => c.CreatedDateTime.Date >= start.Date && c.CreatedDateTime.Date <= end.Date && c.IsArrived == isArrived).OrderBy(c => c.CreatedDateTime)
+                    .GroupBy(x => x.CreatedDateTime.Date).Select(x => new DataRecord(x.Key.Date.ToString("d", new CultureInfo("fr-FR")), x.Count())).ToListAsync();
 
                 return query;
             }

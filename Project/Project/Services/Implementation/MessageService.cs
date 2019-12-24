@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using DBRepository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -31,10 +33,37 @@ namespace Project.Services.Implementation
             var endDateTime = Convert.ToDateTime(end);
             var stats = new List<StatData>
             {
-                new StatData(await _repository.GetStats(startDateTime, endDateTime, true), "Arrived"),
-                new StatData(await _repository.GetStats(startDateTime, endDateTime, false), "Left")
+                new StatData(AddEmptyData(await _repository.GetStats(startDateTime, endDateTime, true), startDateTime, endDateTime), "Arrived"),
+                new StatData(AddEmptyData(await _repository.GetStats(startDateTime, endDateTime, false), startDateTime, endDateTime), "Left")
             };
+
             return stats;
+        }
+
+        private List<DataRecord> AddEmptyData(List<DataRecord> data, DateTime startDateTime, DateTime endDateTime)
+        {
+            var result = new List<DataRecord>();
+            var keys = data.Select(item => item.Key).ToList();
+            foreach (var day in EachDay(startDateTime, endDateTime))
+            {
+                var dayStr = day.Date.ToString("d", new CultureInfo("fr-FR"));
+                if (keys.Contains(dayStr))
+                {
+                    result.Add(data.First(item => item.Key == dayStr));
+                }
+                else
+                {
+                    result.Add(new DataRecord(dayStr, 0));
+                }
+            }
+
+            return result;
+        }
+
+        private IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
+        {
+            for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
+                yield return day;
         }
     }
 }

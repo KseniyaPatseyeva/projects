@@ -2,7 +2,7 @@ import {GET_DATA_ERROR, GET_DATA_SUCCESS} from "./actionTypes";
 
 export function getData() {
     return (dispatch) => {
-        fetch('api/Messages/stats/2019-05-25/2019-05-27', {
+        fetch('api/Messages/stats/2019-05-25/2019-05-29', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
