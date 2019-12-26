@@ -5,10 +5,12 @@ const initialState = {
         type: 'spline'
     },
     xAxis: {
+        type: 'datetime',
         tickInterval: 7 * 24 * 3600 * 1000, // one week
         tickWidth: 0,
         gridLineWidth: 1,
         labels: {
+            format: '{value:%Y-%b-%e}',
             align: 'left',
             x: 3,
             y: -3
@@ -50,6 +52,10 @@ const initialState = {
     title: {
         text: 'Stats'
     },
+    tooltip: {
+        shared: true,
+        crosshairs: true
+    },
     series: [
         {
             name: '',
@@ -65,8 +71,18 @@ export default function chart(state = initialState, action) {
             return {
                 ...state,
                 series: [
-                    {name: action.payload[0].label, data: action.payload[0].records.map(data => data.count)},
-                    {name: action.payload[1].label, data: action.payload[1].records.map(data => data.count)}
+                    {
+                        name: action.payload[0].label,
+                        data: action.payload[0].records.map(data => data.count),
+                        pointInterval: 24 * 3600 * 1000,
+                        pointStart: Date.UTC(2019, 5, 25)
+                    },
+                    {
+                        name: action.payload[1].label,
+                        data: action.payload[1].records.map(data => data.count),
+                        pointInterval: 24* 3600 * 1000,
+                        pointStart: Date.UTC(2019, 5, 25),
+                    }
                 ]
             };
         case GET_DATA_ERROR:

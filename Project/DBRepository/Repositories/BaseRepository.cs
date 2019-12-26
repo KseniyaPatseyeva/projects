@@ -6,7 +6,6 @@ namespace DBRepository.Repositories
     {
         protected string ConnectionString { get; }
         protected IRepositoryContextFactory ContextFactory { get; }
-
         protected BaseRepository(string connectionString, IRepositoryContextFactory contextFactory)
         {
             ConnectionString = connectionString;

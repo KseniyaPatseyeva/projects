@@ -2,12 +2,12 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {getData} from "../actions/chartActions";
+import {getData} from "../../actions/chartActions";
 
-class Highchart extends Component {
+class Chart extends Component {
 
     componentDidMount() {
-        this.props.getData();
+        this.props.getData('2019-05-25', '2019-05-29');
     }
 
     render() {
@@ -17,7 +17,6 @@ class Highchart extends Component {
     }
 }
 
-
 function mapStateToProps(state) {
     return {
         data: state.chart
@@ -25,7 +24,7 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    getData: () => dispatch(getData())
+    getData: (start, end) => dispatch(getData(start, end))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Highchart);
+export default connect(mapStateToProps, mapDispatchToProps)(Chart);

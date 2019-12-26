@@ -39,7 +39,7 @@ namespace Project.Services.Implementation
 
             return stats;
         }
-
+        // add record about empty days
         private List<DataRecord> AddEmptyData(List<DataRecord> data, DateTime startDateTime, DateTime endDateTime)
         {
             var result = new List<DataRecord>();
@@ -59,7 +59,7 @@ namespace Project.Services.Implementation
 
             return result;
         }
-
+        // day enumerator
         private IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
         {
             for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))

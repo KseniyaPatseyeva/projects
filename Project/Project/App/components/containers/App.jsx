@@ -2,7 +2,7 @@ import React from 'react';
 import Counter from "./CounterContainer";
 import Table from "./TableBox";
 import {Navbar, Container} from 'react-bootstrap';
-import Highchart from "../Highchart";
+import Chart from "./Highchart";
 
 export default class App extends React.Component {
     render() {
@@ -12,12 +12,12 @@ export default class App extends React.Component {
                     <h2>Project</h2>
                 </Navbar>
                 <Container>
-                    <Highchart/>
+                    <Chart/>
                     <div>
-                    <Counter/>
-                    <Table/>
+                        <Counter/>
+                        <Table/>
                     </div>
-                    </Container>
+                </Container>
                 <Navbar sticky="bottom">
                     <Navbar.Text>© 2019-2020 .NET Student Labs 2019</Navbar.Text>
                 </Navbar>
