@@ -7,6 +7,7 @@ using DBRepository.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Models;
+using Models.DbModels;
 using Project.Services.Interfaces;
 
 namespace Project.Services.Implementation
@@ -21,6 +22,12 @@ namespace Project.Services.Implementation
             _repository = repository;
             _config = configuration;
         }
+
+        public async Task<ActionResult<int>> GetCount()
+        {
+            return await _repository.GetFreePlaces(1);
+        }
+
         public async Task<ActionResult<Page<Message>>> GetMessages(int pageIndex)
         {
             var pageSize = _config.GetValue<int>("pageSize");

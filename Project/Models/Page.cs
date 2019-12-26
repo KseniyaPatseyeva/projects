@@ -5,7 +5,7 @@ namespace Models
 {
     public class Page<T>
     {
-        private int _totalPages = 0;
+        private int _totalPages;
         public int CurrentPage { get; set; }
         public int PageSize { get; set; }
 

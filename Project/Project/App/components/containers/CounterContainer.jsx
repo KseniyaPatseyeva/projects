@@ -6,11 +6,7 @@ import {increaseCount, decreaseCount, initCount} from '../../actions/counterActi
 class Counter extends PureComponent {
 
     componentDidMount() {
-        if (this.props.defaultValue) {
-            this.props.handleInit(this.props.defaultValue);
-        } else {
-            this.props.handleInit(0);
-        }
+        this.props.handleInit();
     }
 
     render() {
@@ -34,7 +30,7 @@ function mapStateToProps(state) {
 const mapDispatchToProps = (dispatch) => ({
     handleIncrease: () => dispatch(increaseCount()),
     handleDecrease: () => dispatch(decreaseCount()),
-    handleInit: (value) => dispatch(initCount(value))
+    handleInit: () => dispatch(initCount())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Models;
+using Models.DbModels;
 using Project.Services.Interfaces;
 
 namespace Project.Controllers
@@ -36,5 +37,12 @@ namespace Project.Controllers
         {
             return await _service.GetStats(start, end);
         }
+
+        [HttpGet("count/")]
+        public async Task<ActionResult<int>> GetCount()
+        {
+            return await _service.GetCount();
+        }
+
     }
 }

@@ -15,11 +15,26 @@ namespace DBRepository.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     LicensePlate = table.Column<string>(nullable: true),
                     IsArrived = table.Column<bool>(nullable: false),
-                    CreatedDateTime = table.Column<DateTime>(nullable: false)
+                    CreatedDateTime = table.Column<DateTime>(nullable: false),
+                    ParkingId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Messages", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Parkings",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Address = table.Column<string>(nullable: true),
+                    Places = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Parkings", x => x.Id);
                 });
         }
 
@@ -27,6 +42,9 @@ namespace DBRepository.Migrations
         {
             migrationBuilder.DropTable(
                 name: "Messages");
+
+            migrationBuilder.DropTable(
+                name: "Parkings");
         }
     }
 }

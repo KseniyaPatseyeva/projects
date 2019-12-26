@@ -12,9 +12,23 @@ export function decreaseCount() {
     };
 }
 
-export function initCount(value) {
-    return {
-        type: INIT,
-        payload: value
-    };
+export function initCount() {
+    return (dispatch) => {
+        fetch('api/Messages/count/', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            }
+        })
+            .then((response) => {
+                return response.json();
+            }).then((data) => {
+            dispatch({
+                type: INIT,
+                payload: data
+            });
+        }).catch((ex) => {
+            dispatch({type: INIT, payload: ex});
+        });
+    }
 }

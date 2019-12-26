@@ -1,5 +1,5 @@
-﻿using Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Models.DbModels;
 
 namespace DBRepository
 {
@@ -9,6 +9,7 @@ namespace DBRepository
         {
         }
 
+        public DbSet<Parking> Parkings { get; set; } 
         public DbSet<Message> Messages { get; set; }
     }
 }

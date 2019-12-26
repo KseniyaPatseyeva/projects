@@ -19,7 +19,7 @@ namespace DBRepository.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Models.Message", b =>
+            modelBuilder.Entity("Models.DbModels.Message", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -35,9 +35,30 @@ namespace DBRepository.Migrations
                     b.Property<string>("LicensePlate")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ParkingId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.ToTable("Messages");
+                });
+
+            modelBuilder.Entity("Models.DbModels.Parking", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Places")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Parkings");
                 });
 #pragma warning restore 612, 618
         }

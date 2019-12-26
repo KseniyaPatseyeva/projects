@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using DBRepository.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Models;
+using Models.DbModels;
 
 namespace DBRepository.Repositories
 {
-    
     public class ParkingRepository : BaseRepository, IParkingRepository
     {
         public ParkingRepository(string connectionString, IRepositoryContextFactory contextFactory)
@@ -39,11 +39,30 @@ namespace DBRepository.Repositories
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
                 var query = await context.Messages
-                    .Where(c => c.CreatedDateTime.Date >= start.Date && c.CreatedDateTime.Date <= end.Date && c.IsArrived == isArrived).OrderBy(c => c.CreatedDateTime)
-                    .GroupBy(x => x.CreatedDateTime.Date).Select(x => new DataRecord(x.Key.Date.ToString("d", new CultureInfo("fr-FR")), x.Count())).ToListAsync();
+                    .Where(c => c.CreatedDateTime.Date >= start.Date && c.CreatedDateTime.Date <= end.Date &&
+                                c.IsArrived == isArrived)
+                    .OrderBy(c => c.CreatedDateTime)
+                    .GroupBy(x => x.CreatedDateTime.Date)
+                    .Select(x => new DataRecord(x.Key.Date.ToString("d", new CultureInfo("fr-FR")), x.Count()))
+                    .ToListAsync();
 
                 return query;
             }
+        }
+
+        public async Task<int> GetFreePlaces(int parkingId)
+        {
+            int totalPlaces, messagesArrived, messagesLeft;
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                totalPlaces = context.Parkings.FirstOrDefault(parking => parking.Id == parkingId).Places;
+                messagesArrived = await context.Messages
+                    .Where(message => message.ParkingId == parkingId && message.IsArrived).CountAsync();
+                messagesLeft = await context.Messages
+                    .Where(message => message.ParkingId == parkingId && !message.IsArrived).CountAsync();
+            }
+
+            return totalPlaces - messagesArrived + messagesLeft;
         }
     }
 }

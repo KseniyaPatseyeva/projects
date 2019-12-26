@@ -19,31 +19,31 @@ const initialState = {
 
     yAxis: [
         {
-        title: {
-            text: null
-        },
-        labels: {
-            align: 'left',
-            x: 3,
-            y: 16,
-            format: '{value:.,0f}'
-        },
-        showFirstLabel: false
-    }, { // right y axis
-        linkedTo: 0,
-        gridLineWidth: 0,
-        opposite: true,
-        title: {
-            text: null
-        },
-        labels: {
-            align: 'right',
-            x: -3,
-            y: 16,
-            format: '{value:.,0f}'
-        },
-        showFirstLabel: false
-    }],
+            title: {
+                text: null
+            },
+            labels: {
+                align: 'left',
+                x: 3,
+                y: 16,
+                format: '{value:.,0f}'
+            },
+            showFirstLabel: false
+        }, { // right y axis
+            linkedTo: 0,
+            gridLineWidth: 0,
+            opposite: true,
+            title: {
+                text: null
+            },
+            labels: {
+                align: 'right',
+                x: -3,
+                y: 16,
+                format: '{value:.,0f}'
+            },
+            showFirstLabel: false
+        }],
 
     legend: {
         align: 'left',
@@ -59,14 +59,10 @@ const initialState = {
     },
     series: [
         {
-            name: 'Arrived',
-            data: [],
             pointInterval: 24 * 3600 * 1000,
             pointStart: Date.UTC(2019, 5, 25)
         },
         {
-            name: 'Left',
-            data: [],
             pointInterval: 24 * 3600 * 1000,
             pointStart: Date.UTC(2019, 5, 25)
         }
@@ -74,19 +70,24 @@ const initialState = {
     error: ''
 };
 
+function seriesArray(payload) {
+    let dataArray = [];
+    for (let i = 0; i < payload.length; i++) {
+        dataArray.push({
+            name: payload[i].label,
+            data: payload[i].records.map(data => data.count)
+        })
+    }
+    return dataArray
+}
+
 export default function chart(state = initialState, action) {
     switch (action.type) {
         case GET_DATA_SUCCESS:
+
             return {
                 ...state,
-                series: [
-                    {
-                        data: action.payload[0].records.map(data => data.count)
-                    },
-                    {
-                        data: action.payload[1].records.map(data => data.count)
-                    }
-                ]
+                series: seriesArray(action.payload)
             };
         case GET_DATA_ERROR:
             return {...state, error: action.payload};
