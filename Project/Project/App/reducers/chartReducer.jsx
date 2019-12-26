@@ -6,7 +6,7 @@ const initialState = {
     },
     xAxis: {
         type: 'datetime',
-        tickInterval: 7 * 24 * 3600 * 1000, // one week
+        tickInterval: 7 * 24 * 3600 * 1000,
         tickWidth: 0,
         gridLineWidth: 1,
         labels: {
@@ -17,7 +17,8 @@ const initialState = {
         }
     },
 
-    yAxis: [{ // left y axis
+    yAxis: [
+        {
         title: {
             text: null
         },
@@ -58,8 +59,16 @@ const initialState = {
     },
     series: [
         {
-            name: '',
-            data: []
+            name: 'Arrived',
+            data: [],
+            pointInterval: 24 * 3600 * 1000,
+            pointStart: Date.UTC(2019, 5, 25)
+        },
+        {
+            name: 'Left',
+            data: [],
+            pointInterval: 24 * 3600 * 1000,
+            pointStart: Date.UTC(2019, 5, 25)
         }
     ],
     error: ''
@@ -72,16 +81,10 @@ export default function chart(state = initialState, action) {
                 ...state,
                 series: [
                     {
-                        name: action.payload[0].label,
-                        data: action.payload[0].records.map(data => data.count),
-                        pointInterval: 24 * 3600 * 1000,
-                        pointStart: Date.UTC(2019, 5, 25)
+                        data: action.payload[0].records.map(data => data.count)
                     },
                     {
-                        name: action.payload[1].label,
-                        data: action.payload[1].records.map(data => data.count),
-                        pointInterval: 24* 3600 * 1000,
-                        pointStart: Date.UTC(2019, 5, 25),
+                        data: action.payload[1].records.map(data => data.count)
                     }
                 ]
             };
