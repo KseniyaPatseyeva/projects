@@ -60,11 +60,11 @@ const initialState = {
     series: [
         {
             pointInterval: 24 * 3600 * 1000,
-            pointStart: Date.UTC(2019, 5, 25)
+            pointStart: Date.UTC(2019, 11, 25)
         },
         {
             pointInterval: 24 * 3600 * 1000,
-            pointStart: Date.UTC(2019, 5, 25)
+            pointStart: Date.UTC(2019, 11, 25)
         }
     ],
     error: ''

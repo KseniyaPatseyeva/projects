@@ -7,7 +7,7 @@ import {getData} from "../../actions/chartActions";
 class Chart extends Component {
 
     componentDidMount() {
-        this.props.getData('2019-05-25', '2019-05-29');
+        this.props.getData('2019-12-25', '2019-12-30');
     }
 
     render() {
@@ -15,6 +15,15 @@ class Chart extends Component {
             <HighchartsReact highcharts={Highcharts} options={this.props.data}/>
         )
     }
+}
+
+function getDateFromToday() {
+    const today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0');
+    let yyyy = today.getFullYear();
+
+    return  yyyy + '-' + mm + '-' + dd;
 }
 
 function mapStateToProps(state) {

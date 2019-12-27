@@ -2,7 +2,8 @@ import React from 'react';
 import Counter from "./CounterContainer";
 import Table from "./TableBox";
 import {Navbar, Container} from 'react-bootstrap';
-import Chart from "./Highchart";
+import Chart from "./Chart";
+import {Datepicker} from "../Datepicker";
 
 export default class App extends React.Component {
     render() {
@@ -12,7 +13,19 @@ export default class App extends React.Component {
                     <h2>Project</h2>
                 </Navbar>
                 <Container>
-                    <Chart/>
+                    <div className=" p-2 d-flex flex-row">
+                        <div className="w-100 bd-highlight">
+                            <Chart/>
+                        </div>
+                        <div className="d-flex flex-row align-self-center">
+                            <div className="m-2">
+                            <Datepicker/>
+                            </div>
+                            <div className="m-2">
+                            <Datepicker/>
+                            </div>
+                        </div>
+                    </div>
                     <div>
                         <Counter/>
                         <Table/>
