@@ -31,7 +31,8 @@ namespace Project.Services.Implementation
         public async Task<ActionResult<Page<Message>>> GetMessages(int pageIndex)
         {
             var pageSize = _config.GetValue<int>("pageSize");
-            return await _repository.GetMessages(pageIndex, pageSize); ;
+            return await _repository.GetMessages(pageIndex, pageSize);
+            ;
         }
 
         public async Task<ActionResult<List<StatData>>> GetStats(string start, string end)
@@ -40,12 +41,17 @@ namespace Project.Services.Implementation
             var endDateTime = Convert.ToDateTime(end);
             var stats = new List<StatData>
             {
-                new StatData(AddEmptyData(await _repository.GetStats(startDateTime, endDateTime, true), startDateTime, endDateTime), "Arrived"),
-                new StatData(AddEmptyData(await _repository.GetStats(startDateTime, endDateTime, false), startDateTime, endDateTime), "Left")
+                new StatData(
+                    AddEmptyData(await _repository.GetStats(startDateTime, endDateTime, true), startDateTime,
+                        endDateTime), "Arrived"),
+                new StatData(
+                    AddEmptyData(await _repository.GetStats(startDateTime, endDateTime, false), startDateTime,
+                        endDateTime), "Left")
             };
 
             return stats;
         }
+
         // add record about empty days
         private List<DataRecord> AddEmptyData(List<DataRecord> data, DateTime startDateTime, DateTime endDateTime)
         {
@@ -66,6 +72,7 @@ namespace Project.Services.Implementation
 
             return result;
         }
+
         // day enumerator
         private IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
         {
