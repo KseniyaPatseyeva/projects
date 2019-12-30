@@ -1,7 +1,8 @@
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
 
-import {increaseCount, decreaseCount, initCount} from '../../actions/counterActions';
+import {getData} from "../../actions/fetchAction";
+import {GET_COUNT_ERROR, GET_COUNT_SUCCESS} from "../../actions/actionTypes";
 
 class Counter extends PureComponent {
 
@@ -13,9 +14,6 @@ class Counter extends PureComponent {
         return (
             <div>
                 <h6> Counter {this.props.count}</h6>
-                {/*<button onClick={this.props.handleIncrease}> Increase</button>*/}
-                {/*<button onClick={this.props.handleDecrease}> Decrease</button>*/}
-                {/*<button onClick={() => this.props.handleInit(this.props.defaultValue)}> Init</button>*/}
             </div>
         )
     }
@@ -28,9 +26,7 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    handleIncrease: () => dispatch(increaseCount()),
-    handleDecrease: () => dispatch(decreaseCount()),
-    handleInit: () => dispatch(initCount())
+    handleInit: () => dispatch(getData('count/', GET_COUNT_SUCCESS, GET_COUNT_ERROR))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Counter);

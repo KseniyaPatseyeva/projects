@@ -1,20 +1,6 @@
-import {INCREMENT, DECREMENT, INIT} from "./actionTypes";
-
-export function increaseCount() {
-    return {
-        type: INCREMENT
-    };
-}
-
-export function decreaseCount() {
-    return {
-        type: DECREMENT
-    };
-}
-
-export function initCount() {
+export function getData(url, SUCCESS_ACTION, ERROR_ACTION) {
     return (dispatch) => {
-        fetch('api/Messages/count/', {
+        fetch('Messages/' + url, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json; charset=utf-8'
@@ -24,11 +10,11 @@ export function initCount() {
                 return response.json();
             }).then((data) => {
             dispatch({
-                type: INIT,
+                type: SUCCESS_ACTION,
                 payload: data
             });
         }).catch((ex) => {
-            dispatch({type: INIT, payload: ex});
+            dispatch({type: ERROR_ACTION, payload: ex});
         });
     }
 }

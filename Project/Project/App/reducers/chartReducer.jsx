@@ -60,11 +60,11 @@ const initialState = {
     series: [
         {
             pointInterval: 24 * 3600 * 1000,
-            pointStart: Date.UTC(2019, 5, 25)
+            pointStart: Date.UTC(2019, 11, 25)
         },
         {
             pointInterval: 24 * 3600 * 1000,
-            pointStart: Date.UTC(2019, 5, 25)
+            pointStart: Date.UTC(2019, 11, 25)
         }
     ],
     error: ''
@@ -84,7 +84,6 @@ function seriesArray(payload) {
 export default function chart(state = initialState, action) {
     switch (action.type) {
         case GET_DATA_SUCCESS:
-
             return {
                 ...state,
                 series: seriesArray(action.payload)

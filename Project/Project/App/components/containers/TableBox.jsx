@@ -1,8 +1,9 @@
 import React, {PureComponent} from 'react';
 import {connect} from 'react-redux';
-import {getMessages} from "../../actions/tableActions";
 import {Table} from "react-bootstrap";
 import Pagination from "react-js-pagination";
+import {getData} from "../../actions/fetchAction";
+import {GET_MESSAGES_ERROR, GET_MESSAGES_SUCCESS} from "../../actions/actionTypes";
 
 class TableBox extends PureComponent {
 
@@ -77,7 +78,7 @@ let mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getMessages: (page) => dispatch(getMessages(page))
+        getMessages: (page) => dispatch(getData('page/'+ page, GET_MESSAGES_SUCCESS, GET_MESSAGES_ERROR))
     }
 };
 

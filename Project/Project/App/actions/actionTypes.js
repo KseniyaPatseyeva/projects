@@ -1,7 +1,6 @@
 // Counter
-export const INCREMENT = 'INCREMENT';
-export const DECREMENT = 'DECREMENT';
-export const INIT = 'INIT';
+export const GET_COUNT_SUCCESS = 'GET_COUNT_SUCCESS';
+export const GET_COUNT_ERROR = 'GET_COUNT_ERROR';
 
 // Message
 export const GET_MESSAGES_SUCCESS = 'GET_MESSAGES_SUCCESS';
