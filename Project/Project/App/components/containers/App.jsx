@@ -1,5 +1,5 @@
 import React from 'react';
-import Counter from "./CounterContainer";
+import Counter from "./Counter";
 import Table from "./TableBox";
 import {Navbar, Container} from 'react-bootstrap';
 import Chart from "./Chart";
@@ -19,10 +19,10 @@ export default class App extends React.Component {
                         </div>
                         <div className="d-flex flex-row align-self-center">
                             <div className="m-2">
-                            <Datepicker/>
+                                <Datepicker daysAgo={30}/>
                             </div>
                             <div className="m-2">
-                            <Datepicker/>
+                                <Datepicker />
                             </div>
                         </div>
                     </div>

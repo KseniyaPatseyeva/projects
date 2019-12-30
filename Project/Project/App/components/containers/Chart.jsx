@@ -24,11 +24,7 @@ function getDateFromToday() {
     let mm = String(today.getMonth() + 1).padStart(2, '0');
     let yyyy = today.getFullYear();
 
-<<<<<<< HEAD
     return yyyy + '-' + mm + '-' + dd;
-=======
-    return  yyyy + '-' + mm + '-' + dd;
->>>>>>> develop
 }
 
 function mapStateToProps(state) {

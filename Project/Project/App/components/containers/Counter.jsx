@@ -13,7 +13,7 @@ class Counter extends PureComponent {
     render() {
         return (
             <div>
-                <h6> Counter {this.props.count}</h6>
+                <h6> Free parking slots: {this.props.count}</h6>
             </div>
         )
     }
