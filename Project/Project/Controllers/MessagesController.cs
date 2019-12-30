@@ -7,7 +7,7 @@ using Project.Services.Interfaces;
 
 namespace Project.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class MessagesController
     {
@@ -18,15 +18,15 @@ namespace Project.Controllers
             _service = service;
         }
 
-        // GET: api/Messages
+        // GET: Messages
         [HttpGet]
         public async Task<ActionResult<Page<Message>>> GetMessages()
         {
             return await _service.GetMessages(0);
         }
 
-        // GET: api/Messages/5
-        [HttpGet("{id}")]
+        // GET: api/Messages/page/5
+        [HttpGet("page/{id}")]
         public async Task<ActionResult<Page<Message>>> GetMessage(int id = 0)
         {
             return await _service.GetMessages(id);
