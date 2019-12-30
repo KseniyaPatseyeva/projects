@@ -3,7 +3,7 @@ import Counter from "./Counter";
 import Table from "./TableBox";
 import {Navbar, Container} from 'react-bootstrap';
 import Chart from "./Chart";
-import {Datepicker} from "../Datepicker";
+import DateField from "./DateField";
 
 export default class App extends React.Component {
     render() {
@@ -17,14 +17,7 @@ export default class App extends React.Component {
                         <div className="w-100 bd-highlight">
                             <Chart/>
                         </div>
-                        <div className="d-flex flex-row align-self-center">
-                            <div className="m-2">
-                                <Datepicker daysAgo={30}/>
-                            </div>
-                            <div className="m-2">
-                                <Datepicker />
-                            </div>
-                        </div>
+                        <DateField/>
                     </div>
                     <div>
                         <Counter/>
