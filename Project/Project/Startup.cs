@@ -2,18 +2,18 @@ using DBRepository;
 using DBRepository.Factories;
 using DBRepository.Interfaces;
 using DBRepository.Repositories;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
-using React.AspNet;
 using JavaScriptEngineSwitcher.ChakraCore;
 using JavaScriptEngineSwitcher.Extensions.MsDependencyInjection;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Project.Services.Implementation;
 using Project.Services.Interfaces;
+using React.AspNet;
 
 namespace Project
 {
@@ -41,7 +41,8 @@ namespace Project
 
             services.AddScoped<IRepositoryContextFactory, RepositoryContextFactory>();
             services.AddScoped<IParkingRepository>(provider =>
-                new ParkingRepository(Configuration.GetConnectionString("DefaultConnection"),
+                new ParkingRepository(
+                    this.Configuration.GetConnectionString("DefaultConnection"),
                     provider.GetService<IRepositoryContextFactory>()));
             services.AddScoped<IMessageService, MessageService>();
             services.AddControllers();
@@ -73,7 +74,7 @@ namespace Project
                 routes.MapRoute(
                     name: "DefaultApi",
                     template: "api/{controller}/{action}/{id?}");
-                routes.MapSpaFallbackRoute("spa-fallback", new {controller = "Home", action = "Index"});
+                routes.MapSpaFallbackRoute("spa-fallback", new { controller = "Home", action = "Index" });
             });
         }
     }

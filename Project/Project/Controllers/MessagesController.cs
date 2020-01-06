@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Models;
@@ -43,6 +43,5 @@ namespace Project.Controllers
         {
             return await _service.GetCount();
         }
-
     }
 }

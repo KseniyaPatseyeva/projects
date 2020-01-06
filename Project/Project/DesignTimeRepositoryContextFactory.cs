@@ -1,7 +1,7 @@
-﻿using DBRepository;
-using Microsoft.EntityFrameworkCore.Design;
-using System.IO;
+﻿using System.IO;
+using DBRepository;
 using DBRepository.Factories;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 
 namespace Project

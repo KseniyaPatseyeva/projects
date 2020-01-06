@@ -10,14 +10,14 @@ const initialState = {
         tickWidth: 0,
         gridLineWidth: 1,
         labels: {
-            format: '{value:%Y-%b-%e}',
+            format: '{value:%e %b %Y}',
             align: 'left',
             x: 3,
-            y: -3
+            y: 15
         }
     },
 
-    yAxis: [
+    yAxis:
         {
             title: {
                 text: null
@@ -29,21 +29,7 @@ const initialState = {
                 format: '{value:.,0f}'
             },
             showFirstLabel: false
-        }, { // right y axis
-            linkedTo: 0,
-            gridLineWidth: 0,
-            opposite: true,
-            title: {
-                text: null
-            },
-            labels: {
-                align: 'right',
-                x: -3,
-                y: 16,
-                format: '{value:.,0f}'
-            },
-            showFirstLabel: false
-        }],
+        },
 
     legend: {
         align: 'left',

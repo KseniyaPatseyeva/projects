@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using DBRepository.Interfaces;
@@ -19,7 +18,7 @@ namespace DBRepository.Repositories
 
         public async Task<Page<Message>> GetMessages(int index, int pageSize)
         {
-            var result = new Page<Message> {CurrentPage = index, PageSize = pageSize};
+            var result = new Page<Message> { CurrentPage = index, PageSize = pageSize };
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
                 var query = context.Messages.AsQueryable();

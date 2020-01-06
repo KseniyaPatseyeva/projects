@@ -1,6 +1,5 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using DBRepository.Interfaces;
@@ -32,8 +31,8 @@ namespace Project.Services.Implementation
         {
             var pageSize = _config.GetValue<int>("pageSize");
             return await _repository.GetMessages(pageIndex, pageSize);
-            ;
         }
+
         // stats
         public async Task<ActionResult<List<StatData>>> GetStats(string start, string end)
         {
@@ -42,10 +41,14 @@ namespace Project.Services.Implementation
             var stats = new List<StatData>
             {
                 new StatData(
-                    AddEmptyData(await _repository.GetStats(startDateTime, endDateTime, true), startDateTime,
+                    AddEmptyData(
+                        await _repository.GetStats(startDateTime, endDateTime, true),
+                        startDateTime,
                         endDateTime), "Arrived"),
                 new StatData(
-                    AddEmptyData(await _repository.GetStats(startDateTime, endDateTime, false), startDateTime,
+                    AddEmptyData(
+                        await _repository.GetStats(startDateTime, endDateTime, false),
+                        startDateTime,
                         endDateTime), "Left")
             };
 
@@ -74,10 +77,12 @@ namespace Project.Services.Implementation
         }
 
         // day enumerator
-        private IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
+        private static IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
         {
             for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
+            {
                 yield return day;
+            }
         }
     }
 }
