@@ -34,7 +34,7 @@ namespace Project.Services.Implementation
             return await _repository.GetMessages(pageIndex, pageSize);
             ;
         }
-
+        // stats
         public async Task<ActionResult<List<StatData>>> GetStats(string start, string end)
         {
             var startDateTime = Convert.ToDateTime(start);
@@ -59,7 +59,7 @@ namespace Project.Services.Implementation
             var keys = data.Select(item => item.Key).ToList();
             foreach (var day in EachDay(startDateTime, endDateTime))
             {
-                var dayStr = day.Date.ToString("d", new CultureInfo("fr-FR"));
+                var dayStr = day.Date.ToString("O");
                 if (keys.Contains(dayStr))
                 {
                     result.Add(data.First(item => item.Key == dayStr));

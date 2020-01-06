@@ -43,7 +43,7 @@ namespace DBRepository.Repositories
                                 c.IsArrived == isArrived)
                     .OrderBy(c => c.CreatedDateTime)
                     .GroupBy(x => x.CreatedDateTime.Date)
-                    .Select(x => new DataRecord(x.Key.Date.ToString("d", new CultureInfo("fr-FR")), x.Count()))
+                    .Select(x => new DataRecord(x.Key.Date.ToString("O"), x.Count()))
                     .ToListAsync();
 
                 return query;

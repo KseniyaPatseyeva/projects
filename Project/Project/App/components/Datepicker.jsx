@@ -7,7 +7,7 @@ export class Datepicker extends React.Component {
     render() {
         return (
             <DatePicker
-                dateFormat="yyyy-MM-dd"
+                dateFormat="dd-MM-yyyy"
                 selected={this.props.date}
                 onChange={this.props.handleChange}
                 minDate={this.props.minDate}

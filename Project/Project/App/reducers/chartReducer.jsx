@@ -59,12 +59,10 @@ const initialState = {
     },
     series: [
         {
-            pointInterval: 24 * 3600 * 1000,
-            pointStart: Date.UTC(2019, 11, 25)
+            pointInterval: 24 * 3600 * 1000
         },
         {
-            pointInterval: 24 * 3600 * 1000,
-            pointStart: Date.UTC(2019, 11, 25)
+            pointInterval: 24 * 3600 * 1000
         }
     ],
     error: ''
@@ -75,7 +73,8 @@ function seriesArray(payload) {
     for (let i = 0; i < payload.length; i++) {
         dataArray.push({
             name: payload[i].label,
-            data: payload[i].records.map(data => data.count)
+            data: payload[i].records.map(data => data.count),
+            pointStart: Date.parse(payload[i].records[0].key)
         })
     }
     return dataArray
