@@ -8,10 +8,10 @@ namespace Project.Services.Interfaces
 {
     public interface IMessageService
     {
-        Task<ActionResult<Page<Message>>> GetMessages(int pageIndex);
+        Task<Page<Message>> GetMessages(int pageIndex);
 
-        Task<ActionResult<List<StatData>>> GetStats(string start, string end);
+        Task<List<StatData>> GetStats(string start, string end);
 
-        Task<ActionResult<int>> GetCount();
+        Task<int> GetCount();
     }
 }

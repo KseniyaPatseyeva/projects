@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DBRepository.Interfaces;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Models;
 using Models.DbModels;
@@ -22,19 +21,19 @@ namespace Project.Services.Implementation
             _config = configuration;
         }
 
-        public async Task<ActionResult<int>> GetCount()
+        public async Task<int> GetCount()
         {
             return await _repository.GetFreePlaces(1);
         }
 
-        public async Task<ActionResult<Page<Message>>> GetMessages(int pageIndex)
+        public async Task<Page<Message>> GetMessages(int pageIndex)
         {
             var pageSize = _config.GetValue<int>("pageSize");
             return await _repository.GetMessages(pageIndex, pageSize);
         }
 
         // stats
-        public async Task<ActionResult<List<StatData>>> GetStats(string start, string end)
+        public async Task<List<StatData>> GetStats(string start, string end)
         {
             var startDateTime = Convert.ToDateTime(start);
             var endDateTime = Convert.ToDateTime(end);
