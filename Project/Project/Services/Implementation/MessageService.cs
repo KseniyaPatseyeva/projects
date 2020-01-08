@@ -33,7 +33,7 @@ namespace Project.Services.Implementation
         }
 
         // stats
-        public async Task<List<StatData>> GetStats(string start, string end)
+        public async Task<IEnumerable<StatData>> GetStats(string start, string end)
         {
             var startDateTime = Convert.ToDateTime(start);
             var endDateTime = Convert.ToDateTime(end);
@@ -55,7 +55,7 @@ namespace Project.Services.Implementation
         }
 
         // add record about empty days
-        private List<DataRecord> AddEmptyData(List<DataRecord> data, DateTime startDateTime, DateTime endDateTime)
+        private IEnumerable<DataRecord> AddEmptyData(IEnumerable<DataRecord> data, DateTime startDateTime, DateTime endDateTime)
         {
             var result = new List<DataRecord>();
             var keys = data.Select(item => item.Key).ToList();

@@ -17,7 +17,7 @@ namespace Models
 
     public class StatData
     {
-        public StatData(List<DataRecord> records, string label)
+        public StatData(IEnumerable<DataRecord> records, string label)
         {
             Records = records;
             Label = label;
@@ -25,6 +25,6 @@ namespace Models
 
         public string Label { get; set; }
 
-        public List<DataRecord> Records { get; set; }
+        public IEnumerable<DataRecord> Records { get; set; }
     }
 }

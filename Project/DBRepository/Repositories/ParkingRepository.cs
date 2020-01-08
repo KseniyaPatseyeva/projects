@@ -33,7 +33,7 @@ namespace DBRepository.Repositories
             return result;
         }
 
-        public async Task<List<DataRecord>> GetStats(DateTime start, DateTime end, bool isArrived)
+        public async Task<IEnumerable<DataRecord>> GetStats(DateTime start, DateTime end, bool isArrived)
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {

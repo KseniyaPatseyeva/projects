@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using JavaScriptEngineSwitcher.Core.Resources;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Models.DbModels;
@@ -35,7 +37,9 @@ namespace Project.Controllers
         [HttpGet("stats/{start}/{end}")]
         public async Task<ActionResult<List<StatData>>> GetStats(string start, string end)
         {
-            return await _service.GetStats(start, end);
+            var enumer = await _service.GetStats(start, end);
+            List<StatData> asList = enumer.ToList();
+            return asList;
         }
 
         [HttpGet("count/")]

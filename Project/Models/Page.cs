@@ -27,6 +27,6 @@ namespace Models
             set => _totalPages = (int)Math.Ceiling((double)value / PageSize);
         }
 
-        public List<T> Records { get; set; }
+        public IEnumerable<T> Records { get; set; }
     }
 }
