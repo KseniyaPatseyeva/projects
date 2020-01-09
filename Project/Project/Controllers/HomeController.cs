@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Serilog;
 
 namespace Project.Controllers
 {
@@ -6,6 +7,7 @@ namespace Project.Controllers
     {
         public IActionResult Index()
         {
+            Log.Information("Getting page view");
             return View();
         }
     }

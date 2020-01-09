@@ -1,10 +1,7 @@
-using System.IO;
-using DBRepository;
-using DBRepository.Interfaces;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 
 namespace Project
 {
@@ -12,28 +9,22 @@ namespace Project
     {
         public static void Main(string[] args)
         {
-            var host = BuildWebHost(args);
+            Log.Logger = new LoggerConfiguration()
+                .Enrich.FromLogContext()
+                .WriteTo.Console()
+                .WriteTo.File("logs/log.txt")
+                .CreateLogger();
 
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");
-            var config = builder.Build();
-
-            // db factory
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-                var factory = services.GetRequiredService<IRepositoryContextFactory>();
-                var context = factory.CreateDbContext(config.GetConnectionString("DefaultConnection"));
-                DbInitializer.Initialize(context);
-            }
-
-            host.Run();
+            Log.Information("Starting up");
+            BuildWebHost(args).Run();
         }
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration(builder => builder.AddJsonFile("appsettings.json"))
+                .ConfigureAppConfiguration(builder =>
+                {
+                    builder.AddJsonFile("appsettings.json");
+                })
                 .UseStartup<Startup>()
                 .Build();
     }

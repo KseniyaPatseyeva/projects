@@ -6,6 +6,7 @@ using DBRepository.Interfaces;
 using Models;
 using Models.DbModels;
 using Project.Services.Interfaces;
+using Serilog;
 
 namespace Project.Services.Implementation
 {
@@ -22,7 +23,8 @@ namespace Project.Services.Implementation
 
         public async Task<int> GetFreePlaces()
         {
-            return await _repository.GetFreePlaces(1);
+            Log.Information("Getting free places");
+
             var totalPlaces = await _repository.GetCount();
             var arrived = await _repository.GetCount(true);
             var left = await _repository.GetCount(false);
@@ -31,6 +33,8 @@ namespace Project.Services.Implementation
 
         public async Task<Page<Message>> GetMessages(int pageIndex)
         {
+            Log.Information("Getting table page {0}", pageIndex);
+
             var result = new Page<Message>
             {
                 PageSize = _config.TablePageSize,
@@ -45,6 +49,8 @@ namespace Project.Services.Implementation
         // stats
         public async Task<IEnumerable<StatData>> GetStats(string start, string end)
         {
+            Log.Information("Getting stats for period {0} - {1}", start, end);
+
             var startDateTime = Convert.ToDateTime(start);
             var endDateTime = Convert.ToDateTime(end);
             var stats = new List<StatData>
@@ -65,21 +71,17 @@ namespace Project.Services.Implementation
         }
 
         // add record about empty days
-        private IEnumerable<DataRecord> AddEmptyData(IEnumerable<DataRecord> data, DateTime startDateTime, DateTime endDateTime)
+        private IEnumerable<DataRecord> AddEmptyData(
+            IEnumerable<DataRecord> data,
+            DateTime startDateTime,
+            DateTime endDateTime)
         {
             var result = new List<DataRecord>();
             var keys = data.Select(item => item.Key).ToList();
             foreach (var day in EachDay(startDateTime, endDateTime))
             {
                 var dayStr = day.Date.ToString("O");
-                if (keys.Contains(dayStr))
-                {
-                    result.Add(data.First(item => item.Key == dayStr));
-                }
-                else
-                {
-                    result.Add(new DataRecord(dayStr, 0));
-                }
+                result.Add(keys.Contains(dayStr) ? data.First(item => item.Key == dayStr) : new DataRecord(dayStr, 0));
             }
 
             return result;

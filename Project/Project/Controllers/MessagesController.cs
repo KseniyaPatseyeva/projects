@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Models;
 using Models.DbModels;
 using Project.Services.Interfaces;
+using Serilog;
 
 namespace Project.Controllers
 {
@@ -23,6 +24,7 @@ namespace Project.Controllers
         [HttpGet]
         public async Task<ActionResult<Page<Message>>> GetMessages()
         {
+            Log.Information("Get request to table page 1");
             return await _service.GetMessages(1);
         }
 
@@ -30,12 +32,14 @@ namespace Project.Controllers
         [HttpGet("page/{id}")]
         public async Task<ActionResult<Page<Message>>> GetMessage(int id)
         {
+            Log.Information("Get request to table page {0}", id);
             return await _service.GetMessages(id);
         }
 
         [HttpGet("stats/{start}/{end}")]
         public async Task<ActionResult<List<StatData>>> GetStats(string start, string end)
         {
+            Log.Information("Get request to stats from {0} to {1}", start, end);
             var enumer = await _service.GetStats(start, end);
             return enumer.ToList();
         }
@@ -43,6 +47,7 @@ namespace Project.Controllers
         [HttpGet("count/")]
         public async Task<ActionResult<int>> GetCount()
         {
+            Log.Information("Get request to free places count");
             return await _service.GetFreePlaces();
         }
     }

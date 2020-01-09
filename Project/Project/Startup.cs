@@ -14,6 +14,7 @@ using Microsoft.Extensions.Hosting;
 using Project.Services.Implementation;
 using Project.Services.Interfaces;
 using React.AspNet;
+using Serilog;
 
 namespace Project
 {
@@ -29,6 +30,8 @@ namespace Project
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            Log.Information("Configuring services");
+
             var config = new AppConfiguration();
             Configuration.Bind("Parking");
             services.AddSingleton(config);
@@ -52,6 +55,8 @@ namespace Project
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            Log.Information("Configuring HTTP request pipeline");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
