@@ -28,7 +28,7 @@ namespace Project.Services.Implementation
         public async Task<Page<Message>> GetMessages(int pageIndex)
         {
             var pageSize = _config.TablePageSize;
-            return await _repository.GetMessages(pageIndex, pageSize);
+            return await _repository.GetMessages(pageIndex - 1, pageSize);
         }
 
         // stats

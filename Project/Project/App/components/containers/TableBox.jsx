@@ -13,11 +13,11 @@ class TableBox extends PureComponent {
     }
 
     componentDidMount() {
-        this.props.getMessages(0);
+        this.props.getMessages(1);
     }
 
     handlePageChange(pageNumber) {
-        this.props.getMessages(pageNumber - 1);
+        this.props.getMessages(pageNumber);
     }
 
     tableView(data, index) {

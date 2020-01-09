@@ -29,7 +29,7 @@ namespace Project.Controllers
 
         // GET: api/Messages/page/5
         [HttpGet("page/{id}")]
-        public async Task<ActionResult<Page<Message>>> GetMessage(int id = 0)
+        public async Task<ActionResult<Page<Message>>> GetMessage(int id = 1)
         {
             return await _service.GetMessages(id);
         }
