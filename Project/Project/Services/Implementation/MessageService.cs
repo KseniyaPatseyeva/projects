@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DBRepository.Interfaces;
-using Microsoft.Extensions.Configuration;
 using Models;
 using Models.DbModels;
 using Project.Services.Interfaces;
@@ -13,9 +12,9 @@ namespace Project.Services.Implementation
     public class MessageService : IMessageService
     {
         private readonly IParkingRepository _repository;
-        private readonly IConfiguration _config;
+        private readonly AppConfiguration _config;
 
-        public MessageService(IParkingRepository repository, IConfiguration configuration)
+        public MessageService(IParkingRepository repository, AppConfiguration configuration)
         {
             _repository = repository;
             _config = configuration;
@@ -28,7 +27,7 @@ namespace Project.Services.Implementation
 
         public async Task<Page<Message>> GetMessages(int pageIndex)
         {
-            var pageSize = _config.GetValue<int>("pageSize");
+            var pageSize = _config.TablePageSize;
             return await _repository.GetMessages(pageIndex, pageSize);
         }
 

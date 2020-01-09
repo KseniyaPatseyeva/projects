@@ -19,12 +19,12 @@ namespace Project
                 .AddJsonFile("appsettings.json");
             var config = builder.Build();
 
+            // db factory
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
-
                 var factory = services.GetRequiredService<IRepositoryContextFactory>();
-                using var context = factory.CreateDbContext(config.GetConnectionString("DefaultConnection"));
+                var context = factory.CreateDbContext(config.GetConnectionString("DefaultConnection"));
                 DbInitializer.Initialize(context);
             }
 
@@ -33,6 +33,7 @@ namespace Project
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration(builder => builder.AddJsonFile("appsettings.json"))
                 .UseStartup<Startup>()
                 .Build();
     }

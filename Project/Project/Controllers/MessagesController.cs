@@ -38,8 +38,7 @@ namespace Project.Controllers
         public async Task<ActionResult<List<StatData>>> GetStats(string start, string end)
         {
             var enumer = await _service.GetStats(start, end);
-            List<StatData> asList = enumer.ToList();
-            return asList;
+            return enumer.ToList();
         }
 
         [HttpGet("count/")]

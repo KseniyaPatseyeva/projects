@@ -19,20 +19,23 @@ namespace Project
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; }
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
+        public IConfiguration Configuration { get; }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string connection = Configuration.GetConnectionString("DefaultConnection");
+            var config = new AppConfiguration();
+            Configuration.Bind("Parking");
+            services.AddSingleton(config);
+
+            var connection = Configuration.GetConnectionString("DefaultConnection");
             services.AddSingleton(Configuration);
-            services.AddDbContext<RepositoryContext>(options =>
-                options.UseSqlServer(connection));
+            services.AddDbContext<RepositoryContext>(options => options.UseSqlServer(connection));
             services.AddMvc(options => options.EnableEndpointRouting = false);
             services.AddReact();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -41,9 +44,7 @@ namespace Project
 
             services.AddScoped<IRepositoryContextFactory, RepositoryContextFactory>();
             services.AddScoped<IParkingRepository>(provider =>
-                new ParkingRepository(
-                    this.Configuration.GetConnectionString("DefaultConnection"),
-                    provider.GetService<IRepositoryContextFactory>()));
+                new ParkingRepository(connection, provider.GetService<IRepositoryContextFactory>()));
             services.AddScoped<IMessageService, MessageService>();
             services.AddControllers();
         }
