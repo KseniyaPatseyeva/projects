@@ -11,6 +11,6 @@ namespace Project.Services.Interfaces
 
         Task<IEnumerable<StatData>> GetStats(string start, string end);
 
-        Task<int> GetCount();
+        Task<int> GetFreePlaces();
     }
 }

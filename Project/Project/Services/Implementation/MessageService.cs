@@ -20,15 +20,26 @@ namespace Project.Services.Implementation
             _config = configuration;
         }
 
-        public async Task<int> GetCount()
+        public async Task<int> GetFreePlaces()
         {
             return await _repository.GetFreePlaces(1);
+            var totalPlaces = await _repository.GetCount();
+            var arrived = await _repository.GetCount(true);
+            var left = await _repository.GetCount(false);
+            return totalPlaces - arrived + left;
         }
 
         public async Task<Page<Message>> GetMessages(int pageIndex)
         {
-            var pageSize = _config.TablePageSize;
-            return await _repository.GetMessages(pageIndex - 1, pageSize);
+            var result = new Page<Message>
+            {
+                PageSize = _config.TablePageSize,
+                CurrentPage = pageIndex,
+                TotalPages = await _repository.GetCount(),
+                Records = await _repository.GetMessages(pageIndex - 1, _config.TablePageSize)
+            };
+
+            return result;
         }
 
         // stats

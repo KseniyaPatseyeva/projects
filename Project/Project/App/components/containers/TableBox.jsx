@@ -1,9 +1,9 @@
-import React, {PureComponent} from 'react';
-import {connect} from 'react-redux';
-import {Table} from "react-bootstrap";
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
+import { Table } from "react-bootstrap";
 import Pagination from "react-js-pagination";
-import {getData} from "../../actions/fetchAction";
-import {GET_MESSAGES_ERROR, GET_MESSAGES_SUCCESS} from "../../actions/actionTypes";
+import { getData } from "../../actions/fetchAction";
+import { GET_MESSAGES_ERROR, GET_MESSAGES_SUCCESS } from "../../actions/actionTypes";
 
 class TableBox extends PureComponent {
 
@@ -27,12 +27,13 @@ class TableBox extends PureComponent {
         } else {
             action = 'left'
         }
+
         return (
             <tr key={index}>
                 <td>{data.id}</td>
                 <td>{data.licensePlate}</td>
                 <td>{action}</td>
-                <td>{data.createdDateTime.replace('T', ' ')}</td>
+                <td>{data.createdDateTime}</td>
             </tr>
         )
     }
@@ -42,19 +43,19 @@ class TableBox extends PureComponent {
             <div>
                 <Table striped bordered hover className="flex-column">
                     <thead>
-                    <tr>
-                        <th>№</th>
-                        <th>Licence plate</th>
-                        <th>Action</th>
-                        <th>Time</th>
-                    </tr>
+                        <tr>
+                            <th>№</th>
+                            <th>Licence plate</th>
+                            <th>Action</th>
+                            <th>Time</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    {this.props.messages.map((message, i) => this.tableView(message, i))}
+                        {this.props.messages.map((message, i) => this.tableView(message, i))}
                     </tbody>
                 </Table>
                 <Pagination
-                    activePage={this.props.currentPage + 1}
+                    activePage={this.props.currentPage}
                     itemsCountPerPage={this.props.pageSize}
                     totalItemsCount={this.props.totalPages * this.props.pageSize}
                     onChange={this.handlePageChange}
@@ -78,7 +79,7 @@ let mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getMessages: (page) => dispatch(getData('page/'+ page, GET_MESSAGES_SUCCESS, GET_MESSAGES_ERROR))
+        getMessages: (page) => dispatch(getData('page/' + page, GET_MESSAGES_SUCCESS, GET_MESSAGES_ERROR))
     }
 };
 

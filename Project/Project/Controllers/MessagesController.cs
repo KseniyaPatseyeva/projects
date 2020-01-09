@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using JavaScriptEngineSwitcher.Core.Resources;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Models.DbModels;
@@ -24,12 +23,12 @@ namespace Project.Controllers
         [HttpGet]
         public async Task<ActionResult<Page<Message>>> GetMessages()
         {
-            return await _service.GetMessages(0);
+            return await _service.GetMessages(1);
         }
 
         // GET: api/Messages/page/5
         [HttpGet("page/{id}")]
-        public async Task<ActionResult<Page<Message>>> GetMessage(int id = 1)
+        public async Task<ActionResult<Page<Message>>> GetMessage(int id)
         {
             return await _service.GetMessages(id);
         }
@@ -44,7 +43,7 @@ namespace Project.Controllers
         [HttpGet("count/")]
         public async Task<ActionResult<int>> GetCount()
         {
-            return await _service.GetCount();
+            return await _service.GetFreePlaces();
         }
     }
 }
