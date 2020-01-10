@@ -10,9 +10,11 @@ namespace Project
         public static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
-                .Enrich.FromLogContext()
                 .WriteTo.Console()
-                .WriteTo.File("logs/log.txt")
+                .WriteTo.File(
+                    "logs/log.txt",
+                    rollingInterval: RollingInterval.Day,
+                    fileSizeLimitBytes: 1024)
                 .CreateLogger();
 
             Log.Information("Starting up");
