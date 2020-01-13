@@ -11,7 +11,7 @@ namespace DBRepository.Repositories
 {
     public class ParkingRepository : BaseRepository, IParkingRepository
     {
-        private int parkingId = 1;
+        private const int ParkingId = 1;
 
         public ParkingRepository(string connectionString, IRepositoryContextFactory contextFactory)
             : base(connectionString, contextFactory)
@@ -20,19 +20,18 @@ namespace DBRepository.Repositories
 
         public async Task<IEnumerable<Message>> GetMessages(int index, int pageSize)
         {
+            IEnumerable<Message> records;
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                var query = context.Messages
-                    .Where(message => message.ParkingId == parkingId)
-                    .AsQueryable();
-                var records = await query
+                records = await context.Messages
+                    .Where(message => message.ParkingId == ParkingId)
                     .OrderByDescending(c => c.CreatedDateTime)
                     .Skip(index * pageSize)
                     .Take(pageSize)
-                    .ToListAsync();
-
-                return records;
+                    .ToArrayAsync();
             }
+
+            return records;
         }
 
         public async Task<IEnumerable<DataRecord>> GetStats(DateTime start, DateTime end, bool isArrived)
@@ -40,7 +39,7 @@ namespace DBRepository.Repositories
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
                 var query = await context.Messages
-                    .Where(message => message.ParkingId == parkingId)
+                    .Where(message => message.ParkingId == ParkingId)
                     .Where(c => c.CreatedDateTime.Date >= start.Date && c.CreatedDateTime.Date <= end.Date &&
                                 c.IsArrived == isArrived)
                     .OrderBy(c => c.CreatedDateTime)
@@ -57,7 +56,7 @@ namespace DBRepository.Repositories
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
                 var arrivedCount = await context.Messages
-                    .Where(message => message.ParkingId == parkingId)
+                    .Where(message => message.ParkingId == ParkingId)
                     .Where(message => message.IsArrived == isArrived)
                     .CountAsync();
                 return arrivedCount;
@@ -69,7 +68,7 @@ namespace DBRepository.Repositories
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
                 var totalCount = await context.Messages
-                    .Where(message => message.ParkingId == parkingId)
+                    .Where(message => message.ParkingId == ParkingId)
                     .CountAsync();
                 return totalCount;
             }

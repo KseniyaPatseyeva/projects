@@ -36,10 +36,7 @@ namespace Project
             Configuration.Bind("Parking");
             services.AddSingleton(config);
 
-            var connection = Configuration.GetConnectionString("DefaultConnection");
-            services.AddSingleton(Configuration);
-            services.AddDbContext<RepositoryContext>(options => options.UseSqlServer(connection));
-            services.AddMvc(options => options.EnableEndpointRouting = false);
+            services.AddDbContext<RepositoryContext>(options => options.UseSqlServer(config.ConnectionString));
             services.AddReact();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddJsEngineSwitcher(options => options.DefaultEngineName = ChakraCoreJsEngine.EngineName)
@@ -47,9 +44,9 @@ namespace Project
 
             services.AddScoped<IRepositoryContextFactory, RepositoryContextFactory>();
             services.AddScoped<IParkingRepository>(provider =>
-                new ParkingRepository(connection, provider.GetService<IRepositoryContextFactory>()));
+                new ParkingRepository(config.ConnectionString, provider.GetService<IRepositoryContextFactory>()));
             services.AddScoped<IMessageService, MessageService>();
-            services.AddControllers();
+            services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,20 +64,24 @@ namespace Project
                 app.UseHsts();
             }
 
+            app.UseRouting();
+
+            app.UseAuthorization();
+
             app.UseReact(config => { });
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseMvc(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
+                // routes
+                endpoints.MapControllerRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-                routes.MapRoute(
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
                     name: "DefaultApi",
-                    template: "api/{controller}/{action}/{id?}");
-                routes.MapSpaFallbackRoute("spa-fallback", new { controller = "Home", action = "Index" });
+                    pattern: "api/{controller}/{action}/{id?}");
             });
         }
     }
