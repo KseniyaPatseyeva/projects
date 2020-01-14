@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import {setEndDate, setStartDate} from "../../actions/dateAction";
 import {getData} from "../../actions/fetchAction";
 import {GET_DATA_ERROR, GET_DATA_SUCCESS} from "../../actions/actionTypes";
+import {ErrorAlert} from "../ErrorAlert";
 
 class DateField extends PureComponent {
 
@@ -16,20 +17,16 @@ class DateField extends PureComponent {
         this.props.setStartDate(startDate);
         this.props.getData(startDate.toLocaleDateString("fr-CA"),
             endDate.toLocaleDateString("fr-CA"));
-
     }
 
     render() {
+        if (this.props.error !== false) {
+            return (
+                <ErrorAlert/>
+            )
+        }
         return (
-            <div className="d-flex flex-row align-self-center">
-                <div className="m-2">
-                    <Datepicker date={this.props.startDate} handleChange={date => {
-                        this.props.setStartDate(date);
-                        if (this.props.startDate)
-                            this.props.getData(date.toLocaleDateString("fr-CA"),
-                                this.props.endDate.toLocaleDateString("fr-CA"));
-                    }} maxDate={this.props.endDate}/>
-                </div>
+            <div className="w-25 date-field d-flex align-self-center">
                 <div className="m-2">
                     <Datepicker date={this.props.endDate} handleChange={date => {
                         this.props.setEndDate(date);
@@ -37,6 +34,15 @@ class DateField extends PureComponent {
                             this.props.getData(this.props.startDate.toLocaleDateString("fr-CA"),
                                 date.toLocaleDateString("fr-CA"));
                     }} minDate={this.props.startDate}/>
+                </div>
+                <div className="align-self-center">to</div>
+                <div className="m-2">
+                    <Datepicker date={this.props.startDate} handleChange={date => {
+                        this.props.setStartDate(date);
+                        if (this.props.startDate)
+                            this.props.getData(date.toLocaleDateString("fr-CA"),
+                                this.props.endDate.toLocaleDateString("fr-CA"));
+                    }} maxDate={this.props.endDate}/>
                 </div>
             </div>
         )
@@ -47,7 +53,8 @@ function mapStateToProps(state) {
     return {
         startDate: state.date.startDate,
         endDate: state.date.endDate,
-        data: state.chart
+        data: state.chart,
+        error: state.chart.error
     }
 }
 

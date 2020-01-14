@@ -4,6 +4,7 @@ import { Table } from "react-bootstrap";
 import Pagination from "react-js-pagination";
 import { getData } from "../../actions/fetchAction";
 import { GET_MESSAGES_ERROR, GET_MESSAGES_SUCCESS } from "../../actions/actionTypes";
+import { ErrorAlert } from '../ErrorAlert';
 
 class TableBox extends PureComponent {
 
@@ -39,7 +40,12 @@ class TableBox extends PureComponent {
     }
 
     render() {
-        return (
+        if (this.props.error !== false) {
+            return (
+                <ErrorAlert />
+            )
+        }
+        return(
             <div>
                 <Table striped bordered hover className="flex-column">
                     <thead>
@@ -68,12 +74,13 @@ class TableBox extends PureComponent {
     }
 }
 
-let mapStateToProps = (state) => {
+function mapStateToProps(state) {
     return {
         messages: state.table.data.records,
         currentPage: state.table.data.currentPage,
         pageSize: state.table.data.pageSize,
-        totalPages: state.table.data.totalPages
+        totalPages: state.table.data.totalPages,
+        error: state.table.error
     }
 };
 

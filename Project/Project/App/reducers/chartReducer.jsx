@@ -51,7 +51,7 @@ const initialState = {
             pointInterval: 24 * 3600 * 1000
         }
     ],
-    error: ''
+    error: false
 };
 
 function seriesArray(payload) {
@@ -71,10 +71,14 @@ export default function chart(state = initialState, action) {
         case GET_DATA_SUCCESS:
             return {
                 ...state,
-                series: seriesArray(action.payload)
+                series: seriesArray(action.payload),
+                error: false
             };
         case GET_DATA_ERROR:
-            return {...state, error: action.payload};
+            return {
+                ...state,
+                error: action.payload
+            };
         default:
             return state;
     }

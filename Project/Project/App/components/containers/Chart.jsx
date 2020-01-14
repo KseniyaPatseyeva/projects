@@ -1,6 +1,6 @@
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import React, {Component, PureComponent} from "react";
+import React, {PureComponent} from "react";
 import {connect} from "react-redux";
 
 class Chart extends PureComponent {
@@ -13,9 +13,7 @@ class Chart extends PureComponent {
 
 function mapStateToProps(state) {
     return {
-        data: state.chart,
-        startDate: state.date.startDate,
-        endDate: state.date.endDate
+        data: state.chart
     }
 }
 

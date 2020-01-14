@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 
 import {getData} from "../../actions/fetchAction";
 import {GET_COUNT_ERROR, GET_COUNT_SUCCESS} from "../../actions/actionTypes";
+import {ErrorAlert} from "../ErrorAlert";
 
 class Counter extends PureComponent {
 
@@ -11,6 +12,11 @@ class Counter extends PureComponent {
     }
 
     render() {
+        if (this.props.error !== false) {
+            return (
+                <ErrorAlert />
+            )
+        }
         return (
             <div>
                 <h6> Free parking slots: {this.props.count}</h6>
@@ -22,6 +28,7 @@ class Counter extends PureComponent {
 function mapStateToProps(state) {
     return {
         count: state.counter.count,
+        error: state.counter.error
     }
 }
 

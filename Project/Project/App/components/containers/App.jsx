@@ -13,11 +13,16 @@ export default class App extends React.Component {
                     <h2>Project</h2>
                 </Navbar>
                 <Container>
-                    <div className=" p-2 d-flex flex-row">
+                    <div className="p-2 d-flex flex-column">
+                        <div className="card border-secondary mb-3">
+                            <div className="card-header">Select date period</div>
+                            <div className="card-body">
+                                <DateField/>
+                            </div>
+                        </div>
                         <div className="w-100 bd-highlight">
                             <Chart/>
                         </div>
-                        <DateField/>
                     </div>
                     <div>
                         <Counter/>
