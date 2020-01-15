@@ -1,9 +1,15 @@
 import {SET_END_DATE, SET_START_DATE} from "../actions/actionTypes";
 
 const initialState = {
-    startDate: 0,
-    endDate: 0
+    startDate: getMonthAgoDate(new Date),
+    endDate: new Date()
 };
+
+// month period from date
+function getMonthAgoDate(date) {
+    date.setDate(date.getDate() - 30);
+    return date;
+}
 
 export default function date(state = initialState, action) {
     switch (action.type) {
