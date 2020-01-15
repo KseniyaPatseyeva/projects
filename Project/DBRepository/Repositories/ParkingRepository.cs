@@ -67,10 +67,9 @@ namespace DBRepository.Repositories
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                var totalCount = await context.Messages
-                    .Where(message => message.ParkingId == ParkingId)
-                    .CountAsync();
-                return totalCount;
+                var query = await context.Parkings
+                    .FirstAsync(parking => parking.Id == ParkingId);
+                return query.Places;
             }
         }
     }
