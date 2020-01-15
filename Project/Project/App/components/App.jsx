@@ -1,9 +1,9 @@
 import React from 'react';
-import Counter from "./Counter";
-import Table from "./TableBox";
+import Counter from "./containers/Counter";
+import Table from "./containers/TableBox";
 import {Navbar, Container} from 'react-bootstrap';
-import Chart from "./Chart";
-import DateField from "./DateField";
+import Chart from "./containers/Chart";
+import DateField from "./containers/DateField";
 
 export default class App extends React.Component {
     render() {
