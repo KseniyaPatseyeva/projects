@@ -1,9 +1,9 @@
-import React, {PureComponent} from 'react';
-import {connect} from 'react-redux';
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 
-import {getData} from "../../actions/fetchAction";
-import {GET_COUNT_ERROR, GET_COUNT_SUCCESS} from "../../actions/actionTypes";
-import {ErrorAlert} from "../ErrorAlert";
+import { getData } from "../../actions/fetchAction";
+import { GET_COUNT_ERROR, GET_COUNT_SUCCESS } from "../../actions/actionTypes";
+import { ErrorAlert } from "../ErrorAlert";
 
 class Counter extends PureComponent {
 
@@ -13,9 +13,7 @@ class Counter extends PureComponent {
 
     render() {
         if (this.props.error !== false) {
-            return (
-                <ErrorAlert />
-            )
+            return <ErrorAlert />
         }
         return (
             <div>

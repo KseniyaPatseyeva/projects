@@ -1,5 +1,5 @@
 import React, {PureComponent} from "react";
-import {Datepicker} from "../Datepicker";
+import Datepicker from '../Datepicker';
 import {connect} from "react-redux";
 import {setEndDate, setStartDate} from "../../actions/dateAction";
 import {getData} from "../../actions/fetchAction";
