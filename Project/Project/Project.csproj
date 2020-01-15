@@ -47,7 +47,6 @@
 
   <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
-    <None Include="wwwroot\css\index.css" />
     <None Include="wwwroot\css\normalize.css" />
     <None Include="wwwroot\favicon.ico" />
   </ItemGroup>

@@ -14,6 +14,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTest", "XUnitTest\XUnitTest.csproj", "{3E780E80-C4EE-4097-8665-1ED40D84E1B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjectTests", "ProjectTests\ProjectTests.csproj", "{6EF94319-D8B7-46E6-AD64-EE7196B38197}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +36,14 @@ Global
 		{35F50DCE-1B32-44B2-AB58-47A0FF7231EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35F50DCE-1B32-44B2-AB58-47A0FF7231EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35F50DCE-1B32-44B2-AB58-47A0FF7231EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E780E80-C4EE-4097-8665-1ED40D84E1B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E780E80-C4EE-4097-8665-1ED40D84E1B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E780E80-C4EE-4097-8665-1ED40D84E1B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E780E80-C4EE-4097-8665-1ED40D84E1B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EF94319-D8B7-46E6-AD64-EE7196B38197}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EF94319-D8B7-46E6-AD64-EE7196B38197}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EF94319-D8B7-46E6-AD64-EE7196B38197}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EF94319-D8B7-46E6-AD64-EE7196B38197}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
